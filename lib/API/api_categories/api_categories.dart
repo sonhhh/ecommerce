@@ -4,9 +4,9 @@ import 'package:retrofit/retrofit.dart';
 
 part 'api_categories.g.dart';
 
-@RestApi(baseUrl: "https://api.escuelajs.co/api")
+@RestApi()
 abstract class RestClient {
   factory RestClient(Dio dio, {String baseUrl}) = _RestClient;
   @GET('/v1/categories')
-    Future<List<Categories>> categories();
+    Future<List<Categories>> getListCategory();
 }

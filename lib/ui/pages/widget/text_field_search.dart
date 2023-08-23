@@ -26,8 +26,9 @@ class AppTextFieldSearch extends StatelessWidget {
           controller: controller,
           decoration: InputDecoration(
             labelText: labelText,
-            hintText: "Search",
+            hintText: hintText,
             border: InputBorder.none,
+            icon: Icon(Icons.search, color: Colors.black, size: 20,)
           ),
           keyboardType: textInputType,
           onChanged: onChanged,

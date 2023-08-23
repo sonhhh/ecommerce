@@ -12,6 +12,8 @@ class BottomBar extends StatefulWidget {
 }
 
 class _BottomBarState extends State<BottomBar> {
+  late PersistentTabController _controller;
+  late bool _hideNavBar;
   List<Widget> _buildScreens() {
     return [
       const HomePage(),
@@ -49,14 +51,21 @@ class _BottomBarState extends State<BottomBar> {
     ];
   }
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _controller = PersistentTabController();
+    _hideNavBar = false;
+  }
+  @override
   Widget build(BuildContext context) {
     return PersistentTabView(
       context,
+      controller: _controller,
       screens: _buildScreens(),
       items: _navBarsItems(),
       confineInSafeArea: true,
       backgroundColor: Colors.white,
-      handleAndroidBackButtonPress: true,
       resizeToAvoidBottomInset: true,
       stateManagement: true,
       hideNavigationBarWhenKeyboardShows: true,
