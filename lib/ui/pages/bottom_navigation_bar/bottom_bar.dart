@@ -13,7 +13,7 @@ class BottomBar extends StatefulWidget {
 
 class _BottomBarState extends State<BottomBar> {
   late PersistentTabController _controller;
-  late bool _hideNavBar;
+ // late bool _hideNavBar;
   List<Widget> _buildScreens() {
     return [
       const HomePage(),
@@ -55,7 +55,7 @@ class _BottomBarState extends State<BottomBar> {
     // TODO: implement initState
     super.initState();
     _controller = PersistentTabController();
-    _hideNavBar = false;
+    //_hideNavBar = false;
   }
   @override
   Widget build(BuildContext context) {

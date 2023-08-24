@@ -1,9 +1,7 @@
-import 'package:dio/dio.dart';
-import 'package:ecommerce/API/api_categories/api_categories.dart';
 import 'package:ecommerce/API/api_util.dart';
-import 'package:ecommerce/ui/pages/bottom_navigation_bar/bottom_bar.dart';
-import 'package:ecommerce/ui/pages/page_view/home_page/home_page.dart';
 import 'package:ecommerce/ui/pages/page_view/home_page/home_provider.dart';
+import 'package:ecommerce/ui/pages/products/products.dart';
+import 'package:ecommerce/ui/pages/products/products_provider.dart';
 import 'package:ecommerce/ui/pages/search/search_gridview.dart';
 import 'package:ecommerce/ui/pages/search/search_list_view.dart';
 import 'package:flutter/material.dart';
@@ -23,6 +21,9 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(
           create: (_) => HomeProvider(ApiUtil.apiClient),
         ),
+        ChangeNotifierProvider(
+          create: (_) => ProductsProvider(ApiUtil.apiClient),
+        ),
       ],
       child: MaterialApp(
           title: 'Flutter Demo',
@@ -30,7 +31,7 @@ class MyApp extends StatelessWidget {
             colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
             useMaterial3: true,
           ),
-          home: const SearchListView()),
+          home: SearchListView()),
     );
   }
 }

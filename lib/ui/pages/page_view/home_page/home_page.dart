@@ -1,7 +1,3 @@
-import 'package:dio/dio.dart';
-import 'package:ecommerce/API/api_categories/api_categories.dart';
-import 'package:ecommerce/API/api_categories/categories.dart';
-import 'package:ecommerce/API/api_util.dart';
 import 'package:ecommerce/model/enum/load_status.dart';
 import 'package:ecommerce/ui/pages/page_view/home_page/home_provider.dart';
 import 'package:flutter/material.dart';
@@ -20,9 +16,9 @@ class _HomePageState extends State<HomePage> {
 
   @override
   void initState() {
-    super.initState();
     provider = context.read<HomeProvider>();
-    provider.initData();
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) =>  provider.initData());
   }
 
   @override

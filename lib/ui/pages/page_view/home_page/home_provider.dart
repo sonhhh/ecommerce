@@ -1,4 +1,4 @@
-import 'package:dio/dio.dart';
+
 import 'package:ecommerce/API/api_categories/api_categories.dart';
 import 'package:ecommerce/API/api_categories/categories.dart';
 import 'package:ecommerce/model/enum/load_status.dart';

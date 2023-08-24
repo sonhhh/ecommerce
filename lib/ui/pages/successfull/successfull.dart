@@ -1,5 +1,4 @@
 import 'package:ecommerce/ui/pages/bottom_navigation_bar/bottom_bar.dart';
-import 'package:ecommerce/ui/pages/page_view/home_page/home_page.dart';
 import 'package:flutter/material.dart';
 
 class Successfull extends StatelessWidget {
