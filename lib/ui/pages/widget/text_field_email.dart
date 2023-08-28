@@ -22,6 +22,7 @@ class AppEmailTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
+      width: MediaQuery.of(context).size.width,
       child: TextFormField(
         controller: textEditingController,
         focusNode: focusNode,

@@ -1,9 +1,9 @@
 import 'package:ecommerce/API/api_util.dart';
-import 'package:ecommerce/ui/pages/page_view/home_page/home_provider.dart';
-import 'package:ecommerce/ui/pages/products/products.dart';
+import 'package:ecommerce/ui/pages/detail/detail_products.dart';
+import 'package:ecommerce/ui/pages/page_view/categori_page/home_provider.dart';
+
 import 'package:ecommerce/ui/pages/products/products_provider.dart';
-import 'package:ecommerce/ui/pages/search/search_gridview.dart';
-import 'package:ecommerce/ui/pages/search/search_list_view.dart';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -31,7 +31,7 @@ class MyApp extends StatelessWidget {
             colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
             useMaterial3: true,
           ),
-          home: SearchListView()),
+          home: Detail()),
     );
   }
 }

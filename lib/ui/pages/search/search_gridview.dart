@@ -1,6 +1,7 @@
 import 'package:ecommerce/model/enum/load_status.dart';
-import 'package:ecommerce/ui/pages/page_view/home_page/home_provider.dart';
+
 import 'package:ecommerce/ui/pages/products/products.dart';
+import 'package:ecommerce/ui/pages/products/products_provider.dart';
 import 'package:ecommerce/ui/pages/widget/text_field_search.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -14,16 +15,16 @@ class Search extends StatefulWidget {
 
 class _SearchState extends State<Search> {
   late TextEditingController searchController;
-  late HomeProvider provider;
+  late ProductsProvider provider;
 
   @override
   void initState() {
     // TODO: implement initState
-    provider = context.read<HomeProvider>();
+    provider = context.read<ProductsProvider>();
     super.initState();
     searchController = TextEditingController();
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => provider.initData());
+    WidgetsBinding.instance.addPostFrameCallback((_) => provider.getProducts());
   }
 
   @override
@@ -33,7 +34,7 @@ class _SearchState extends State<Search> {
         padding: const EdgeInsetsDirectional.symmetric(horizontal: 15),
         child: Column(
           children: [
-            SizedBox(
+            const SizedBox(
               height: 50,
             ),
             const Row(
@@ -46,12 +47,12 @@ class _SearchState extends State<Search> {
                 )
               ],
             ),
-            SizedBox(height: 20,),
+            const SizedBox(height: 20,),
             AppTextFieldSearch(
                 controller: searchController, hintText: 'Search Categories'),
            // const SizedBox(height: 30),
             Expanded(
-              child: Consumer<HomeProvider>(
+              child: Consumer<ProductsProvider>(
                 builder: (context, provider, child) {
                   if (provider.loadStatus == LoadStatus.success) {
                     return GridView.builder(
@@ -62,17 +63,19 @@ class _SearchState extends State<Search> {
                         mainAxisSpacing: 10,
                         crossAxisCount: 2,
                       ),
-                      itemCount: provider.categories?.length,
+                      itemCount: provider.products?.length,
                       itemBuilder: (BuildContext context, int index) {
                         if (index < 6) {
-                          final category = provider.categories?[index];
+                          final pro = provider.products?[index];
                           return Container(
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(15)),
                             child: GestureDetector(
                               onTap: () {
                                 Navigator.push(context,MaterialPageRoute(builder: (context) {
-                                  return ProductsScreen(id : category?.id);
+                                  return ProductsScreen(
+                                    name: pro?.category,
+                                  );
                                 },));
                               },
                               child: Stack(
@@ -81,7 +84,7 @@ class _SearchState extends State<Search> {
                                     child: ClipRRect(
                                       borderRadius: BorderRadius.circular(15.0),
                                       child: Image.network(
-                                        category?.image ?? '',
+                                        pro?.image ?? '',
                                         fit: BoxFit.cover,
                                       ),
                                     ),
@@ -99,7 +102,7 @@ class _SearchState extends State<Search> {
                                         height: 40,
                                         child: Center(
                                             child: Text(
-                                          category?.name ?? '',
+                                              pro?.category ?? '',
                                           style: const TextStyle(
                                               color: Colors.black,
                                               fontSize: 15,
@@ -114,7 +117,10 @@ class _SearchState extends State<Search> {
                       },
                     );
                   } else {
-                    return const CircularProgressIndicator();
+                    return const SizedBox(
+                      height: 50,
+                        width: 50,
+                        child: CircularProgressIndicator());
                   }
                 },
               ),

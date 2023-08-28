@@ -8,7 +8,7 @@ class ApiUtil {
   static Dio getDio() {
     if (dio == null) {
       dio = Dio();
-      dio!.options.connectTimeout = const Duration(milliseconds: 60000);
+      dio!.options.connectTimeout = const Duration(milliseconds: 6000000);
       dio!.interceptors.add(PrettyDioLogger(
         requestHeader: true,
         requestBody: true,
@@ -21,7 +21,7 @@ class ApiUtil {
 
   static RestClient get apiClient {
     final apiClient =
-        RestClient(getDio(), baseUrl: "https://api.escuelajs.co/api");
+        RestClient(getDio(), baseUrl: "https://fakestoreapi.com/");
     return apiClient;
   }
 }

@@ -5,9 +5,9 @@ import 'package:provider/provider.dart';
 
 // ignore: must_be_immutable
 class ProductsScreen extends StatefulWidget {
-  int? id;
+  String? name;
 
-  ProductsScreen({super.key, this.id});
+   ProductsScreen({super.key,this.name});
 
   @override
   State<ProductsScreen> createState() => _ProductsScreenState();
@@ -38,47 +38,64 @@ class _ProductsScreenState extends State<ProductsScreen> {
             const Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                Icon(Icons.search, color: Colors.black, size: 25,)
+                Icon(
+                  Icons.search,
+                  color: Colors.black,
+                  size: 25,
+                )
               ],
             ),
             Expanded(
-              child: Consumer<ProductsProvider>(builder: (context, produc, child) {
+              child:
+                  Consumer<ProductsProvider>(builder: (context, produc, child) {
                 if (produc.loadStatus == LoadStatus.success) {
                   return GestureDetector(
                     onTap: () {},
                     child: GridView.builder(
                       gridDelegate:
                           const SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 2,
-                            crossAxisSpacing: 10,
-                            mainAxisSpacing: 10,
-                            childAspectRatio: 3/2,),
+                        crossAxisCount: 2,
+                        crossAxisSpacing: 10,
+                        mainAxisSpacing: 10,
+                        childAspectRatio: 3 / 2,
+                      ),
                       shrinkWrap: true,
                       scrollDirection: Axis.vertical,
                       itemCount: produc.products?.length,
                       itemBuilder: (context, index) {
                         final pro = produc.products?[index];
-                        return Stack(
+                        return Column(
                           children: [
-                            Positioned.fill(
-                                child: ClipRRect(
-                              borderRadius: BorderRadius.circular(15),
-                              child: Image.network(pro?.category?.image ?? '',
-                                  fit: BoxFit.cover),
-                            )),
-                            Positioned(child: Text(pro?.title ?? '')),
-                            // Positioned(child: Text( pro?.category?.name.toString() ?? '')),
-                            // Positioned(child: Text(pro?.price.toString() ?? ''))
+                            Text(pro?.category ?? '',
+                                style: const TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 30,
+                                    fontWeight: FontWeight.bold)),
+                            Stack(
+                              children: [
+                                Positioned.fill(
+                                    child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(15),
+                                  child: Image.network(
+                                      pro?.image ?? '',
+                                      fit: BoxFit.cover),
+                                )),
+                                Positioned(child: Text(pro?.title ?? '')),
+                                // Positioned(child: Text( pro?.category?.name.toString() ?? '')),
+                                // Positioned(child: Text(pro?.price.toString() ?? ''))
+                              ],
+                            ),
                           ],
                         );
                       },
                     ),
                   );
                 } else {
-                  return Container(
-                      height: 50,
-                      width: 50,
-                      child: const CircularProgressIndicator(),);
+                  return const SizedBox(
+                    height: 50,
+                    width: 50,
+                    child: CircularProgressIndicator(),
+                  );
                 }
               }),
             )

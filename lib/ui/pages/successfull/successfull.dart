@@ -7,7 +7,7 @@ class Successfull extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
+      body: SizedBox(
         height: double.infinity,
         width: double.infinity,
         child:  Column(
@@ -23,7 +23,7 @@ class Successfull extends StatelessWidget {
             const SizedBox(height: 300,),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: Container(
+              child: SizedBox(
                 width: double.infinity,
                 child: ElevatedButton(
                   onPressed: () {

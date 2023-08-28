@@ -1,4 +1,5 @@
 import 'package:ecommerce/ui/pages/page_view/account/account.dart';
+
 import 'package:ecommerce/ui/pages/page_view/home_page/home_page.dart';
 import 'package:ecommerce/ui/pages/page_view/notification/notification.dart';
 import 'package:flutter/material.dart';
@@ -12,11 +13,11 @@ class BottomBar extends StatefulWidget {
 }
 
 class _BottomBarState extends State<BottomBar> {
-  late PersistentTabController _controller;
- // late bool _hideNavBar;
+ // late PersistentTabController _controller;
+  //late bool _hideNavBar;
   List<Widget> _buildScreens() {
     return [
-      const HomePage(),
+      const HomePageScreen(),
       const Card(),
       const NotificationPage(),
       const Account()
@@ -54,14 +55,14 @@ class _BottomBarState extends State<BottomBar> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    _controller = PersistentTabController();
-    //_hideNavBar = false;
+   // _controller = PersistentTabController();
+   // _hideNavBar = false;
   }
   @override
   Widget build(BuildContext context) {
     return PersistentTabView(
       context,
-      controller: _controller,
+      //controller: _controller,
       screens: _buildScreens(),
       items: _navBarsItems(),
       confineInSafeArea: true,

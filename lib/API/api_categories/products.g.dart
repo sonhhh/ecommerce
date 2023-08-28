@@ -9,19 +9,13 @@ part of 'products.dart';
 Products _$ProductsFromJson(Map<String, dynamic> json) => Products(
       id: json['id'] as int?,
       title: json['title'] as String?,
-      price: json['price'] as int?,
+      price: (json['price'] as num?)?.toDouble(),
       description: json['description'] as String?,
-      images:
-          (json['images'] as List<dynamic>?)?.map((e) => e as String).toList(),
-      creationAt: json['creationAt'] == null
+      category: json['category'] as String?,
+      image: json['image'] as String?,
+      rating: json['rating'] == null
           ? null
-          : DateTime.parse(json['creationAt'] as String),
-      updatedAt: json['updatedAt'] == null
-          ? null
-          : DateTime.parse(json['updatedAt'] as String),
-      category: json['category'] == null
-          ? null
-          : Category.fromJson(json['category'] as Map<String, dynamic>),
+          : Rating.fromJson(json['rating'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$ProductsToJson(Products instance) => <String, dynamic>{
@@ -29,28 +23,17 @@ Map<String, dynamic> _$ProductsToJson(Products instance) => <String, dynamic>{
       'title': instance.title,
       'price': instance.price,
       'description': instance.description,
-      'images': instance.images,
-      'creationAt': instance.creationAt?.toIso8601String(),
-      'updatedAt': instance.updatedAt?.toIso8601String(),
       'category': instance.category,
+      'image': instance.image,
+      'rating': instance.rating,
     };
 
-Category _$CategoryFromJson(Map<String, dynamic> json) => Category(
-      id: json['id'] as int?,
-      name: json['name'] as String?,
-      image: json['image'] as String?,
-      creationAt: json['creationAt'] == null
-          ? null
-          : DateTime.parse(json['creationAt'] as String),
-      updatedAt: json['updatedAt'] == null
-          ? null
-          : DateTime.parse(json['updatedAt'] as String),
+Rating _$RatingFromJson(Map<String, dynamic> json) => Rating(
+      rate: (json['rate'] as num?)?.toDouble(),
+      count: json['count'] as int?,
     );
 
-Map<String, dynamic> _$CategoryToJson(Category instance) => <String, dynamic>{
-      'id': instance.id,
-      'name': instance.name,
-      'image': instance.image,
-      'creationAt': instance.creationAt?.toIso8601String(),
-      'updatedAt': instance.updatedAt?.toIso8601String(),
+Map<String, dynamic> _$RatingToJson(Rating instance) => <String, dynamic>{
+      'rate': instance.rate,
+      'count': instance.count,
     };

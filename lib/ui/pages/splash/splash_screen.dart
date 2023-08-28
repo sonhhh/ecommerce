@@ -22,7 +22,7 @@ class _SplashScreenState extends State<SplashScreen> {
         child: Column(mainAxisAlignment: MainAxisAlignment.end, children: [
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: Container(
+            child: SizedBox(
               width: double.infinity,
               child: ElevatedButton(
                   onPressed: () {},
@@ -43,7 +43,7 @@ class _SplashScreenState extends State<SplashScreen> {
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: Container(
+            child: SizedBox(
               width: double.infinity,
               child: ElevatedButton(
                 onPressed: () {},

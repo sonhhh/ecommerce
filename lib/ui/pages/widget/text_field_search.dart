@@ -20,6 +20,7 @@ class AppTextFieldSearch extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       child: Container(
+        width: 270,
         padding: const EdgeInsets.only(left: 10),
         decoration: BoxDecoration(borderRadius: BorderRadius.circular(30),border: Border.all(),),
         child: TextFormField(
@@ -28,7 +29,7 @@ class AppTextFieldSearch extends StatelessWidget {
             labelText: labelText,
             hintText: hintText,
             border: InputBorder.none,
-            icon: Icon(Icons.search, color: Colors.black, size: 20,)
+            icon: const Icon(Icons.search, color: Colors.black, size: 20,)
           ),
           keyboardType: textInputType,
           onChanged: onChanged,

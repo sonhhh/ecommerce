@@ -1,5 +1,6 @@
 import 'package:ecommerce/model/enum/load_status.dart';
-import 'package:ecommerce/ui/pages/page_view/home_page/home_provider.dart';
+import 'package:ecommerce/ui/pages/page_view/categori_page/home_provider.dart';
+
 import 'package:ecommerce/ui/pages/products/products.dart';
 import 'package:ecommerce/ui/pages/widget/text_field_search.dart';
 import 'package:flutter/material.dart';
@@ -64,13 +65,13 @@ class _SearchListViewState extends State<SearchListView> {
                           scrollDirection: Axis.vertical,
                           itemCount: provider.categories?.length,
                           itemBuilder: (context, index) {
-                            final categories = provider.categories?[index];
+                            //final categories = provider.categories?[index];
                             if (index < 6) {
                               return GestureDetector(
                                 onTap: () {
                                   Navigator.push(context, MaterialPageRoute(builder: (context) {
                                     return ProductsScreen(
-                                      id: categories?.id,
+                                      //id: categories?.id,
                                     );
                                   },));
                                 },
@@ -86,7 +87,7 @@ class _SearchListViewState extends State<SearchListView> {
                                         child: ClipRRect(
                                           borderRadius: BorderRadius.circular(15),
                                           child: Image.network(
-                                            categories?.image ?? '',
+                                         '', //  categories?.image ?? '',
                                             fit: BoxFit.cover,
                                             height: 50,
                                           ),
@@ -103,10 +104,10 @@ class _SearchListViewState extends State<SearchListView> {
                                             borderRadius:
                                                 BorderRadius.circular(15),
                                           ),
-                                          child: Center(
+                                          child: const Center(
                                             child: Text(
-                                              categories?.name ?? '',
-                                              style: const TextStyle(
+                                             '', //categories?.name ?? '',
+                                              style: TextStyle(
                                                 color: Colors.black,
                                                 fontSize: 15,
                                                 fontWeight: FontWeight.bold,
@@ -123,7 +124,10 @@ class _SearchListViewState extends State<SearchListView> {
                           }),
                     );
                   } else {
-                    return const CircularProgressIndicator();
+                    return const SizedBox(
+                        width: 50,
+                        height: 50,
+                        child: CircularProgressIndicator());
                   }
                 },
               ),

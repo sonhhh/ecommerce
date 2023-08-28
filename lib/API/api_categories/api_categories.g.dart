@@ -19,20 +19,20 @@ class _RestClient implements RestClient {
   String? baseUrl;
 
   @override
-  Future<List<Categories>> getListCategory() async {
+  Future<List<String>> getListCategory() async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final Map<String, dynamic>? _data = null;
-    final _result = await _dio
-        .fetch<List<dynamic>>(_setStreamType<List<Categories>>(Options(
+    final _result =
+        await _dio.fetch<List<dynamic>>(_setStreamType<List<String>>(Options(
       method: 'GET',
       headers: _headers,
       extra: _extra,
     )
             .compose(
               _dio.options,
-              '/v1/categories',
+              'products/categories',
               queryParameters: queryParameters,
               data: _data,
             )
@@ -41,9 +41,7 @@ class _RestClient implements RestClient {
               _dio.options.baseUrl,
               baseUrl,
             ))));
-    var value = _result.data!
-        .map((dynamic i) => Categories.fromJson(i as Map<String, dynamic>))
-        .toList();
+    final value = _result.data!.cast<String>();
     return value;
   }
 
@@ -61,7 +59,7 @@ class _RestClient implements RestClient {
     )
             .compose(
               _dio.options,
-              '/v1/products',
+              '/products',
               queryParameters: queryParameters,
               data: _data,
             )
