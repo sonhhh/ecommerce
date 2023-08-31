@@ -5,7 +5,7 @@ class ColorDropdown extends StatefulWidget {
   String selectedColor;
   ValueChanged<String> onColorChanged;
 
-  ColorDropdown({
+  ColorDropdown({super.key,
     required this.colorMap,
     required this.selectedColor,
     required this.onColorChanged,

@@ -65,7 +65,6 @@ class _SearchListViewState extends State<SearchListView> {
                           scrollDirection: Axis.vertical,
                           itemCount: provider.categories?.length,
                           itemBuilder: (context, index) {
-                            //final categories = provider.categories?[index];
                             if (index < 6) {
                               return GestureDetector(
                                 onTap: () {

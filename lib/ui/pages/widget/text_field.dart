@@ -19,12 +19,16 @@ class AppTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
+      width: MediaQuery.of(context).size.width,
       child: TextFormField(
         controller: controller,
         decoration: InputDecoration(
           labelText: labelText,
           hintText: hintText,
-          border: const OutlineInputBorder(),
+          enabledBorder: const UnderlineInputBorder(
+            borderSide: BorderSide(
+                width: 3, color: Colors.black),
+          ),
         ),
         keyboardType: textInputType,
         onChanged: onChanged,

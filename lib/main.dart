@@ -1,18 +1,25 @@
 import 'package:ecommerce/API/api_util.dart';
-import 'package:ecommerce/ui/pages/detail/detail_products.dart';
+import 'package:ecommerce/ui/pages/my_cart/my_cart.dart';
 import 'package:ecommerce/ui/pages/page_view/categori_page/home_provider.dart';
-
 import 'package:ecommerce/ui/pages/products/products_provider.dart';
+import 'package:ecommerce/ui/pages/splash/splash.dart';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
-void main() {
-  runApp(const MyApp());
+import 'package:shared_preferences/shared_preferences.dart';
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  final prefs = await SharedPreferences.getInstance();
+  bool showOnboarding = prefs.getBool('ON_BOARDING') ?? true;
+  runApp(MyApp(showOnboarding));
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  final bool showOnboarding;
+
+  const MyApp(this.showOnboarding, {Key? key}) : super(key: key);
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +38,11 @@ class MyApp extends StatelessWidget {
             colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
             useMaterial3: true,
           ),
-          home: Detail()),
+          home: MyCart(),
+          // Splash(
+          //   showOnboarding: showOnboarding,
+          // )),
+      )
     );
   }
 }

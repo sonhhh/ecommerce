@@ -1,3 +1,4 @@
+import 'package:ecommerce/ui/pages/bottom_navigation_bar/bottom_bar.dart';
 import 'package:ecommerce/ui/pages/widget/text_field_email.dart';
 import 'package:ecommerce/ui/pages/widget/text_field_password.dart';
 import 'package:flutter/material.dart';
@@ -30,12 +31,13 @@ class _SignInState extends State<SignIn> {
         width: double.infinity,
         padding: const EdgeInsets.all(15),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          //mainAxisAlignment: MainAxisAlignment.start,
           children: [
             const SizedBox(
               height: 100,
             ),
-            const Image(image: AssetImage('assets/introl/login_logo.webp'), fit: BoxFit.cover,width: 100,height: 100, ),
+            Center(child: const Image(image: AssetImage('assets/introl/login_logo.webp'), fit: BoxFit.cover,width: 100,height: 100, )),
             const Text("Welcome!", style: TextStyle(color: Colors.black, fontSize: 25, fontWeight: FontWeight.w400)),
             const SizedBox(
               height: 60,
@@ -65,10 +67,14 @@ class _SignInState extends State<SignIn> {
             ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: Container(
+              child: SizedBox(
                 width: double.infinity,
                 child: ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) {
+                      return BottomBar();
+                    },));
+                  },
                   style: ButtonStyle(
                     //  elevation: MaterialStateProperty.all(0),
                     overlayColor: MaterialStateProperty.all(Colors.white.withOpacity(0.2)),
@@ -84,7 +90,7 @@ class _SignInState extends State<SignIn> {
                 ),
               ),
             ),
-            const Text('----------or----------'),
+            Center(child: const Text('----------or----------')),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Container(

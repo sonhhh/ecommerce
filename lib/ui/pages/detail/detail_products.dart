@@ -1,6 +1,7 @@
 import 'package:ecommerce/model/enum/data_fix.dart';
 import 'package:ecommerce/ui/pages/detail/color_dropdown.dart';
 import 'package:ecommerce/ui/pages/detail/quantity_selector.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
@@ -25,9 +26,14 @@ class _DetailState extends State<Detail> {
   };
 
   String selectedColor = 'Red';
-  String selectedSize = '';
 
+  String selectedSize = '';
   List<String> sizeOptions = ['42', '43', '44', '45', '46'];
+
+  void onSizeSelected(String size) {
+    print('Selected size: $size');
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,6 +43,7 @@ class _DetailState extends State<Detail> {
         child: ListView.builder(
           physics: const NeverScrollableScrollPhysics(),
           shrinkWrap: true,
+          scrollDirection: Axis.vertical,
           itemCount: detail.length,
           itemBuilder: (context, index) {
             return Container(
@@ -51,9 +58,31 @@ class _DetailState extends State<Detail> {
               child: Stack(
                 children: [
                   Positioned(
+                    top: 40,
+                      left: 16,
+                      child: IconButton(
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                          icon: const Icon(
+                            Icons.arrow_back,
+                            color: Colors.black,
+                            size: 25,
+                          ))),
+                  Positioned(
+                      top: 40,
+                      right: 16,
+                      child: IconButton(
+                          onPressed: () {},
+                          icon: const Icon(
+                            Icons.shopping_basket_sharp,
+                            color: Colors.black,
+                            size: 25,
+                          ))),
+                  Positioned(
                     bottom: 0,
                     child: SizedBox(
-                      height: 450,
+                      height: 480,
                       width: MediaQuery.of(context).size.width,
                       child: Container(
                         padding: const EdgeInsets.all(10),
@@ -144,10 +173,13 @@ class _DetailState extends State<Detail> {
                                     width: 40,
                                     height: 40,
                                     alignment: Alignment.center,
-                                    margin: const EdgeInsets.symmetric(horizontal: 4),
+                                    margin: const EdgeInsets.symmetric(
+                                        horizontal: 4),
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(20),
-                                      color: selectedSize == size ? Colors.black : Colors.white,
+                                      color: selectedSize == size
+                                          ? Colors.black
+                                          : Colors.white,
                                       border: Border.all(
                                         color: Colors.grey,
                                         width: 1,
@@ -156,7 +188,9 @@ class _DetailState extends State<Detail> {
                                     child: Text(
                                       size,
                                       style: TextStyle(
-                                        color: selectedSize == size ? Colors.white : Colors.black,
+                                        color: selectedSize == size
+                                            ? Colors.white
+                                            : Colors.black,
                                       ),
                                     ),
                                   ),
@@ -173,15 +207,51 @@ class _DetailState extends State<Detail> {
                                   color: Colors.black,
                                   fontWeight: FontWeight.bold),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 12,
                             ),
-                            Text(detail[index].detail ?? "", style: TextStyle(color: Colors.black, fontSize: 12),)
+                            Text(
+                              detail[index].detail ?? "",
+                              style: const TextStyle(
+                                  color: Colors.black, fontSize: 12),
+                            )
                           ],
                         ),
                       ),
                     ),
                   ),
+                  Positioned(
+                    bottom: 140,
+                    right: 16,
+                    left: 16,
+                    child: SizedBox( // Wrap the container with SizedBox to provide a size
+                      width: MediaQuery.of(context).size.width, // Set the width to match the screen width
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text('Total Price\n ${detail[index].price ?? ''}',
+                              style: const TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.bold)),
+                          Spacer(),
+                          SizedBox(
+                            height: 40,
+                            child: FloatingActionButton.extended(
+                              heroTag: null,
+                              onPressed: () {},
+                              label: const Text('Buy Now'),
+                              icon: const Icon(Icons.shopping_cart),
+                              backgroundColor: Colors.black,
+                              foregroundColor: Colors.white,
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(30)),
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                  )
                 ],
               ),
             );

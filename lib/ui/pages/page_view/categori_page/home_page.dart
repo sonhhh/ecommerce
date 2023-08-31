@@ -31,7 +31,9 @@ class _HomePageState extends State<HomePage> {
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
             IconButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.of(context).popUntil((route) => route.isFirst);
+            },
               icon: const Icon(  Icons.search,
                 color: Colors.black,
                 size: 30,),

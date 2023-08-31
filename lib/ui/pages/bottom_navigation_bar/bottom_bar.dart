@@ -1,5 +1,5 @@
 import 'package:ecommerce/ui/pages/page_view/account/account.dart';
-
+import 'package:ecommerce/ui/pages/page_view/cart/cart.dart';
 import 'package:ecommerce/ui/pages/page_view/home_page/home_page.dart';
 import 'package:ecommerce/ui/pages/page_view/notification/notification.dart';
 import 'package:flutter/material.dart';
@@ -13,41 +13,45 @@ class BottomBar extends StatefulWidget {
 }
 
 class _BottomBarState extends State<BottomBar> {
- // late PersistentTabController _controller;
+  late PersistentTabController controller;
   //late bool _hideNavBar;
-  List<Widget> _buildScreens() {
+  List<Widget> _buildScreens(PersistentTabController controller) {
     return [
-      const HomePageScreen(),
-      const Card(),
-      const NotificationPage(),
-      const Account()
+        const HomePageScreen(),
+       const Cart(),
+       const NotificationPage(),
+       const Account()
     ];
   }
   List<PersistentBottomNavBarItem> _navBarsItems() {
     return [
       PersistentBottomNavBarItem(
-        icon: const Icon(Icons.home),
+        icon: Icon(Icons.home,
+          color: controller.index == 0 ? Colors.black87 : Colors.black,
+        ),
         title: "Home",
-        activeColorPrimary: Colors.blue,
-        inactiveColorPrimary: Colors.grey,
+        textStyle: const TextStyle(fontWeight: FontWeight.bold, color:Colors.black ),
       ),
       PersistentBottomNavBarItem(
-        icon: const Icon(Icons.shopping_cart),
+        icon: Icon(Icons.shopping_cart,
+          color: controller.index == 1 ? Colors.black87 : Colors.black,
+        ),
         title: "cart",
-        activeColorPrimary: Colors.blue,
-        inactiveColorPrimary: Colors.grey,
+        textStyle: const TextStyle(fontWeight: FontWeight.bold, color: Colors.black),
       ),
       PersistentBottomNavBarItem(
-        icon: const Icon(Icons.notifications),
+        icon: Icon(Icons.notifications,
+          color: controller.index == 2 ? Colors.black87 : Colors.black,
+        ),
         title: "notification",
-        activeColorPrimary: Colors.blue,
-        inactiveColorPrimary: Colors.grey,
+        textStyle: const TextStyle(fontWeight: FontWeight.bold, color: Colors.black),
       ),
       PersistentBottomNavBarItem(
-        icon: const Icon(Icons.account_circle_rounded),
+        icon: Icon(Icons.account_circle_rounded,
+          color: controller.index == 3 ? Colors.black87 : Colors.black,
+        ),
         title: "account",
-        activeColorPrimary: Colors.blue,
-        inactiveColorPrimary: Colors.grey,
+        textStyle: const TextStyle(fontWeight: FontWeight.bold, color: Colors.black),
       ),
     ];
   }
@@ -55,15 +59,15 @@ class _BottomBarState extends State<BottomBar> {
   void initState() {
     // TODO: implement initState
     super.initState();
-   // _controller = PersistentTabController();
+    controller = PersistentTabController( initialIndex: 0);
    // _hideNavBar = false;
   }
   @override
   Widget build(BuildContext context) {
     return PersistentTabView(
       context,
-      //controller: _controller,
-      screens: _buildScreens(),
+      controller: controller,
+      screens: _buildScreens(controller),
       items: _navBarsItems(),
       confineInSafeArea: true,
       backgroundColor: Colors.white,
@@ -73,6 +77,7 @@ class _BottomBarState extends State<BottomBar> {
       decoration: NavBarDecoration(
         borderRadius: BorderRadius.circular(10.0),
       ),
+    //  navBarStyle: NavBarStyle.style7,
     );
   }
 }

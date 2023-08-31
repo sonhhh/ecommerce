@@ -1,7 +1,11 @@
+import 'package:ecommerce/ui/pages/auth/sign_in/sign_in.dart';
+import 'package:ecommerce/ui/pages/auth/sign_up/sign_up.dart';
 import 'package:flutter/material.dart';
 
 class SplashScreen extends StatefulWidget {
-  const SplashScreen({super.key});
+  const SplashScreen({
+    super.key,
+  });
 
   @override
   State<SplashScreen> createState() => _SplashScreenState();
@@ -25,19 +29,25 @@ class _SplashScreenState extends State<SplashScreen> {
             child: SizedBox(
               width: double.infinity,
               child: ElevatedButton(
-                  onPressed: () {},
-              style: ButtonStyle(
-              //  elevation: MaterialStateProperty.all(0),
-                overlayColor: MaterialStateProperty.all(Colors.black38),
-                backgroundColor: MaterialStateProperty.all(Colors.white),
-              ),
-                  child: const Text(
-                    'Login',
-                    style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold),
-                  ),
+                onPressed: () {
+                  Navigator.pushReplacement(context, MaterialPageRoute(
+                    builder: (context) {
+                      return SignIn();
+                    },
+                  ));
+                },
+                style: ButtonStyle(
+                  //  elevation: MaterialStateProperty.all(0),
+                  overlayColor: MaterialStateProperty.all(Colors.black38),
+                  backgroundColor: MaterialStateProperty.all(Colors.white),
+                ),
+                child: const Text(
+                  'Login',
+                  style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold),
+                ),
               ),
             ),
           ),
@@ -46,13 +56,21 @@ class _SplashScreenState extends State<SplashScreen> {
             child: SizedBox(
               width: double.infinity,
               child: ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.pushReplacement(context, MaterialPageRoute(
+                    builder: (context) {
+                      return SignUp();
+                    },
+                  ));
+                },
                 style: ButtonStyle(
-               //   elevation: MaterialStateProperty.all(0),
-                  overlayColor: MaterialStateProperty.all(Colors.white.withOpacity(0.2)),
-                  backgroundColor: MaterialStateProperty.all(Colors.transparent),
-                  side: MaterialStateProperty.all(const BorderSide(color: Colors.white, width: 2))
-                ),
+                    //   elevation: MaterialStateProperty.all(0),
+                    overlayColor: MaterialStateProperty.all(
+                        Colors.white.withOpacity(0.2)),
+                    backgroundColor:
+                        MaterialStateProperty.all(Colors.transparent),
+                    side: MaterialStateProperty.all(
+                        const BorderSide(color: Colors.white, width: 2))),
                 child: const Text(
                   'Sign up',
                   style: TextStyle(
