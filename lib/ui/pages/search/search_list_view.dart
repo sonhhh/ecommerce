@@ -2,7 +2,7 @@ import 'package:ecommerce/model/enum/load_status.dart';
 import 'package:ecommerce/ui/pages/page_view/categori_page/home_provider.dart';
 
 import 'package:ecommerce/ui/pages/products/products.dart';
-import 'package:ecommerce/ui/pages/widget/text_field_search.dart';
+import 'package:ecommerce/ui/pages/widget/text_field/text_field_search.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

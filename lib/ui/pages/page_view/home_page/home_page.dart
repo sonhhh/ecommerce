@@ -2,7 +2,7 @@ import 'package:ecommerce/model/enum/data_fix.dart';
 import 'package:ecommerce/ui/pages/detail/detail_products.dart';
 import 'package:ecommerce/ui/pages/page_view/account/account.dart';
 import 'package:ecommerce/ui/pages/page_view/categori_page/home_page.dart';
-import 'package:ecommerce/ui/pages/widget/text_field_search.dart';
+import 'package:ecommerce/ui/pages/widget/text_field/text_field_search.dart';
 import 'package:flutter/material.dart';
 
 
@@ -101,7 +101,15 @@ class _HomePageScreenState extends State<HomePageScreen> {
                     width: 330,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(15),
-                      color: Colors.grey,
+                      color: Colors.white,
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey.withOpacity(0.5),
+                          spreadRadius: 4,
+                          blurRadius: 4,
+                          offset: const Offset(0, 1), // changes position of shadow
+                        ),
+                      ],
                     ),
                     child: Row(
                       //   mainAxisAlignment: MainAxisAlignment.center,

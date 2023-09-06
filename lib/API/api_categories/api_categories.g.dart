@@ -46,11 +46,11 @@ class _RestClient implements RestClient {
   }
 
   @override
-  Future<List<Products>> getListProduct() async {
+  Future<List<Products>> getProductsByCategory(String name) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    const Map<String, dynamic>? _data = null;
+    final Map<String, dynamic>? _data = null;
     final _result =
         await _dio.fetch<List<dynamic>>(_setStreamType<List<Products>>(Options(
       method: 'GET',
@@ -59,7 +59,7 @@ class _RestClient implements RestClient {
     )
             .compose(
               _dio.options,
-              '/products',
+              '/products/category/${name}',
               queryParameters: queryParameters,
               data: _data,
             )

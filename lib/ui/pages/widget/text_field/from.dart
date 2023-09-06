@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-class AppTextField extends StatelessWidget {
+class AppTextFieldFrom extends StatelessWidget {
   final TextEditingController? controller;
   final ValueChanged<String>? onChanged;
   final TextInputType? textInputType;
   final String? labelText;
   final String? hintText;
 
-  const AppTextField({
+  const AppTextFieldFrom({
     Key? key,
     this.controller,
     this.onChanged,
@@ -19,19 +19,19 @@ class AppTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: MediaQuery.of(context).size.width,
       child: TextFormField(
         controller: controller,
         decoration: InputDecoration(
           labelText: labelText,
           hintText: hintText,
-          enabledBorder: const UnderlineInputBorder(
-            borderSide: BorderSide(
-                width: 3, color: Colors.black),
+          border: const OutlineInputBorder(
+            borderRadius: BorderRadius.all(Radius.circular(15))
           ),
+          contentPadding: EdgeInsets.symmetric(vertical: 12.0, horizontal: 12.0),
         ),
         keyboardType: textInputType,
         onChanged: onChanged,
+        // style: const TextStyle(fontSize: 16, color: Colors.black),
       ),
     );
   }

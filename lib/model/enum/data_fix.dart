@@ -105,3 +105,31 @@ List<Cart> cart=[
   Cart('assets/image/travis_scott.jpg', 'travis scott', 'rapper', 1, 40, 250.45),
 
 ];
+
+
+class MyCart {
+  String? productId; // Thêm productId vào MyCart
+  String? image;
+  String? nameProduct;
+  String? nameCategori;
+  int? price;
+
+
+  MyCart(this.productId, this.image, this.nameProduct, this.nameCategori, this.price);
+}
+
+
+List<MyCart> myCart = [
+  MyCart('1', 'assets/introl/introl2.webp', 'Travis Scott', 'Rapper', 15214212),
+  MyCart('2', 'assets/introl/introl2.webp', 'Travis Scott', 'Rapper', 15214212),
+  MyCart('3', 'assets/introl/introl2.webp', 'Travis Scott', 'Rapper', 15214212),
+];
+
+class Product {
+  String? image;
+  String? nameProduct;
+  String? nameCategori;
+  int? price;
+
+  Product(this.image, this.nameProduct, this.nameCategori, this.price);
+}

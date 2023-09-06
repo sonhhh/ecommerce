@@ -58,10 +58,10 @@ class _NotificationScaState extends State<NotificationPage> {
                     shrinkWrap: true,
                     itemBuilder: (context, index) {
                       return Container(
-                        decoration: const BoxDecoration(
+                        decoration:  BoxDecoration(
                           border: Border(
                               bottom: BorderSide(
-                                  color: Colors.black45, width: 1)),
+                                  color: Colors.black45, width: 0.5),),
                         ),
                         child: Row(
                           children: [

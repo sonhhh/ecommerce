@@ -48,7 +48,16 @@ class _AccountState extends State<Account> {
                 width: double.infinity,
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(15),
-                    color: Colors.grey),
+                    color: Colors.white,
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey.withOpacity(0.5),
+                      spreadRadius: 4,
+                      blurRadius: 4,
+                      offset: Offset(0, 4), // changes position of shadow
+                    ),
+                  ],
+                ),
                 child: Row(
                   children: [
                     ClipRRect(
@@ -87,7 +96,7 @@ class _AccountState extends State<Account> {
                   borderRadius: BorderRadius.circular(15),
                   border: Border.all(
                     color: Colors.grey,
-                    width: 2,
+                    width: 1,
                   ),
                 ),
                 child: Column(

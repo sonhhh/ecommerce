@@ -1,8 +1,12 @@
 import 'package:ecommerce/API/api_util.dart';
 import 'package:ecommerce/ui/pages/my_cart/my_cart.dart';
+import 'package:ecommerce/ui/pages/order_tracking/order_tracking.dart';
+import 'package:ecommerce/ui/pages/page_view/categori_page/home_page.dart';
 import 'package:ecommerce/ui/pages/page_view/categori_page/home_provider.dart';
+import 'package:ecommerce/ui/pages/payment/payment.dart';
 import 'package:ecommerce/ui/pages/products/products_provider.dart';
 import 'package:ecommerce/ui/pages/splash/splash.dart';
+import 'package:ecommerce/ui/pages/successfull/successfull.dart';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -38,11 +42,12 @@ class MyApp extends StatelessWidget {
             colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
             useMaterial3: true,
           ),
-          home: MyCart(),
-          // Splash(
-          //   showOnboarding: showOnboarding,
-          // )),
+          home: HomePage()
+      //     Splash(
+      //       showOnboarding: showOnboarding,
+      //     )),
       )
-    );
+       );
+
   }
 }

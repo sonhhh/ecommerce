@@ -1,5 +1,6 @@
 import 'package:ecommerce/model/enum/load_status.dart';
 import 'package:ecommerce/ui/pages/page_view/categori_page/home_provider.dart';
+import 'package:ecommerce/ui/pages/products/products.dart';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -80,17 +81,24 @@ class _HomePageState extends State<HomePage> {
                                 decoration:  BoxDecoration(color: Colors.black,
                                 borderRadius: BorderRadius.circular(35),
                                 ),
-                                child: Row(
-                                 // mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    const Icon(Icons.account_balance, color: Colors.white, size: 15),
-                                    const SizedBox(
-                                      width: 10,
-                                    ),
-                                    Text(  category ?? '', style: const TextStyle(color: Colors.white, fontSize: 15)),
-                                    const Spacer(),
-                                    const Text("150", style: TextStyle(fontSize: 15, color: Colors.white),)
-                                  ],
+                                child: GestureDetector(
+                                  onTap: () {
+                                    Navigator.push(context, MaterialPageRoute(builder: (context) {
+                                      return ProductsScreen(categoryName: category,);
+                                    },));
+                                  },
+                                  child: Row(
+                                   // mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      const Icon(Icons.account_balance, color: Colors.white, size: 15),
+                                      const SizedBox(
+                                        width: 10,
+                                      ),
+                                      Text(  category ?? '', style: const TextStyle(color: Colors.white, fontSize: 15)),
+                                      const Spacer(),
+                                      const Text("150", style: TextStyle(fontSize: 15, color: Colors.white),)
+                                    ],
+                                  ),
                                 ),
                               );
                             }

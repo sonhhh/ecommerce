@@ -1,6 +1,7 @@
 import 'package:ecommerce/ui/pages/bottom_navigation_bar/bottom_bar.dart';
-import 'package:ecommerce/ui/pages/widget/text_field_email.dart';
-import 'package:ecommerce/ui/pages/widget/text_field_password.dart';
+import 'package:ecommerce/ui/pages/successfull/successfull.dart';
+import 'package:ecommerce/ui/pages/widget/text_field/text_field_email.dart';
+import 'package:ecommerce/ui/pages/widget/text_field/text_field_password.dart';
 import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
@@ -72,7 +73,7 @@ class _SignInState extends State<SignIn> {
                 child: ElevatedButton(
                   onPressed: () {
                     Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) {
-                      return BottomBar();
+                      return Successfull();
                     },));
                   },
                   style: ButtonStyle(

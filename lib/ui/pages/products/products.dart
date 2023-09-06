@@ -5,9 +5,9 @@ import 'package:provider/provider.dart';
 
 // ignore: must_be_immutable
 class ProductsScreen extends StatefulWidget {
-  String? name;
+  String? categoryName;
 
-   ProductsScreen({super.key,this.name});
+  ProductsScreen({super.key, this.categoryName});
 
   @override
   State<ProductsScreen> createState() => _ProductsScreenState();
@@ -21,7 +21,9 @@ class _ProductsScreenState extends State<ProductsScreen> {
     provider = context.read<ProductsProvider>();
     // TODO: implement initState
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) => provider.getProducts());
+  //  provider.init(widget.categoryName);
+    WidgetsBinding.instance.addPostFrameCallback(
+        (_) => provider.getProducts(widget.categoryName ?? ''));
   }
 
   @override
@@ -46,9 +48,9 @@ class _ProductsScreenState extends State<ProductsScreen> {
               ],
             ),
             Expanded(
-              child:
-                  Consumer<ProductsProvider>(builder: (context, produc, child) {
-                if (produc.loadStatus == LoadStatus.success) {
+              child: Consumer<ProductsProvider>(
+                  builder: (context, product, child) {
+                if (product.loadStatus == LoadStatus.success) {
                   return GestureDetector(
                     onTap: () {},
                     child: GridView.builder(
@@ -61,9 +63,9 @@ class _ProductsScreenState extends State<ProductsScreen> {
                       ),
                       shrinkWrap: true,
                       scrollDirection: Axis.vertical,
-                      itemCount: produc.products?.length,
+                      itemCount: product.products?.length,
                       itemBuilder: (context, index) {
-                        final pro = produc.products?[index];
+                        final pro = product.products?[index];
                         return Column(
                           children: [
                             Text(pro?.category ?? '',
@@ -76,13 +78,10 @@ class _ProductsScreenState extends State<ProductsScreen> {
                                 Positioned.fill(
                                     child: ClipRRect(
                                   borderRadius: BorderRadius.circular(15),
-                                  child: Image.network(
-                                      pro?.image ?? '',
+                                  child: Image.network(pro?.image ?? '',
                                       fit: BoxFit.cover),
                                 )),
                                 Positioned(child: Text(pro?.title ?? '')),
-                                // Positioned(child: Text( pro?.category?.name.toString() ?? '')),
-                                // Positioned(child: Text(pro?.price.toString() ?? ''))
                               ],
                             ),
                           ],
