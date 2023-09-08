@@ -1,6 +1,6 @@
+import 'package:ecommerce/ui/pages/order_tracking/order_tracking.dart';
 import 'package:ecommerce/ui/pages/widget/show_dia_log/dia_log.dart';
 import 'package:ecommerce/ui/pages/widget/text_field/from.dart';
-import 'package:ecommerce/ui/pages/widget/text_field/text_field.dart';
 import 'package:ecommerce/ui/pages/widget/visa/visa_card_widget.dart';
 import 'package:flutter/material.dart';
 
@@ -40,7 +40,9 @@ class _PaymentState extends State<Payment> {
               height: 44,
             ),
             IconButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.pop(context);
+                },
                 icon: const Icon(
                   Icons.arrow_back,
                   color: Colors.black,
@@ -101,7 +103,9 @@ class _PaymentState extends State<Payment> {
                           actions: [
                             InkWell(
                               onTap: () {
-                                Navigator.pop(context);
+                                Navigator.push(context, MaterialPageRoute(builder: (context) {
+                                  return OrderTracking();
+                                },));
                               },
                               child: Container(
                                 height: 44,

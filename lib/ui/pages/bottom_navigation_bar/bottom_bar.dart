@@ -17,7 +17,7 @@ class _BottomBarState extends State<BottomBar> {
   //late bool _hideNavBar;
   List<Widget> _buildScreens(PersistentTabController controller) {
     return [
-        const HomePageScreen(),
+         HomePageScreen(),
        const Cart(),
        const NotificationPage(),
        const Account()

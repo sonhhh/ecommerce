@@ -11,6 +11,8 @@ abstract class RestClient {
     Future<List<String>> getListCategory();
   @GET('/products/category/{name}')
   Future<List<Products>> getProductsByCategory(@Path('name') String name);
-
-
+  @GET('/products')
+  Future<List<Products>> getProducts({
+    @Query('limit') String limit = '5',
+  });
 }

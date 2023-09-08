@@ -34,7 +34,9 @@ class _OrderTrackingState extends State<OrderTracking> {
               height: 44,
             ),
             IconButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.pop(context);
+                },
                 icon: const Icon(
                   Icons.arrow_back,
                   color: Colors.black,

@@ -1,9 +1,7 @@
 import 'package:ecommerce/model/enum/data_fix.dart';
-import 'package:ecommerce/ui/pages/bottom_navigation_bar/bottom_bar.dart';
 import 'package:ecommerce/ui/pages/page_view/cart/button.dart';
-import 'package:ecommerce/ui/pages/page_view/home_page/home_page.dart';
 import 'package:flutter/material.dart';
-import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
+
 
 class Cart extends StatefulWidget {
 

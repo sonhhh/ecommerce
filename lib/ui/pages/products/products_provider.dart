@@ -7,20 +7,48 @@ class ProductsProvider with ChangeNotifier {
   final RestClient restClient;
   List<Products>? products;
   String? categoryName;
-  LoadStatus loadStatus = LoadStatus.initial;
-
+  LoadStatus loadStatus = LoadStatus.loading;
   ProductsProvider(this.restClient,
-      {this.loadStatus = LoadStatus.initial, this.products});
+      {this.loadStatus = LoadStatus.loading, this.products});
 
-  void init(String? category) async {
-    loadStatus = LoadStatus.loading;
-    notifyListeners();
-    final r = await getProducts(categoryName ?? '');
-    setProductsList(r);
+  void initProduct(String? category) async {
+    try {
+      final r = await getProductsByCategory(category ?? '');
+      setProductsList(r);
+      loadStatus = LoadStatus.success;
+    } catch (e, s) {
+      print(e);
+      print(s);
+      loadStatus = LoadStatus.failure;
+    }
     notifyListeners();
   }
 
-  Future<List<Products>?> getProducts(String name) async {
+  void initNew() async {
+    try {
+      final h = await getProducts();
+      products = h;
+      print(products);
+      if ( (products ?? []).isNotEmpty){
+        setProductsList(h);
+        loadStatus = LoadStatus.success;
+      }
+    } catch (e) {
+      loadStatus = LoadStatus.failure;
+    }
+    notifyListeners();
+  }
+
+  Future<List<Products>?> getProducts() async {
+    try {
+      final results = await restClient.getProducts();
+      return results;
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  Future<List<Products>?> getProductsByCategory(String name) async {
     try {
       final result = await restClient.getProductsByCategory(name);
       return result;
@@ -35,6 +63,5 @@ class ProductsProvider with ChangeNotifier {
       products = data;
       loadStatus = LoadStatus.success;
     }
-    notifyListeners();
   }
 }

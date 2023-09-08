@@ -1,12 +1,11 @@
 import 'package:ecommerce/ui/pages/auth/sign_in/sign_in.dart';
 import 'package:ecommerce/ui/pages/auth/sign_up/agreement_checkbox.dart';
-import 'package:ecommerce/ui/pages/bottom_navigation_bar/bottom_bar.dart';
 import 'package:ecommerce/ui/pages/widget/text_field/text_field.dart';
+import 'package:ecommerce/ui/pages/widget/text_field/text_field_.dart';
 import 'package:ecommerce/ui/pages/widget/text_field/text_field_email.dart';
 import 'package:ecommerce/ui/pages/widget/text_field/text_field_obscure.dart';
 import 'package:ecommerce/ui/pages/widget/text_field/text_field_password.dart';
 import 'package:flutter/material.dart';
-import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 class SignUp extends StatefulWidget {
   const SignUp({super.key});
@@ -72,7 +71,7 @@ class _SignUpState extends State<SignUp> {
                           fontSize: 15)),
                 ],
               ),
-              AppTextField(
+              AppTextFieldUser(
                 controller: controller,
               ),
               const Row(

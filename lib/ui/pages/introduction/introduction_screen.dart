@@ -1,4 +1,4 @@
-import 'package:ecommerce/ui/pages/bottom_navigation_bar/bottom_bar.dart';
+
 import 'package:ecommerce/ui/pages/splash/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:introduction_screen/introduction_screen.dart';
@@ -16,21 +16,6 @@ class _IntroScreenState extends State<IntroScreen> {
     PageViewModel(
         title: '20% Discount \n New Arrival Product',
          body: 'Here you can have whatever description you would like to have, you can type it all in here',
-        // footer: SizedBox(
-        //   height: 45,
-        //   width: 300,
-        //   child: ElevatedButton(
-        //     style: ElevatedButton.styleFrom(
-        //         backgroundColor: Colors.green,
-        //         shape: RoundedRectangleBorder(
-        //             borderRadius: BorderRadius.circular(20)
-        //         ),
-        //         elevation: 8
-        //     ),
-        //     onPressed: () {},
-        //     child: const Text("Let's Go", style: TextStyle(fontSize: 20)),
-        //   ),
-       // ),
         image: ClipRRect(
           borderRadius: BorderRadius.circular(40),
           child: Center(
@@ -47,21 +32,6 @@ class _IntroScreenState extends State<IntroScreen> {
     PageViewModel(
         title: 'Take Advantage \n Of The Offer Shopping ',
         body: 'Here you can have whatever description you would like to have, you can type it all in here',
-        // footer: SizedBox(
-        //   height: 45,
-        //   width: 300,
-        //   child: ElevatedButton(
-        //     style: ElevatedButton.styleFrom(
-        //         backgroundColor: Colors.green,
-        //         shape: RoundedRectangleBorder(
-        //             borderRadius: BorderRadius.circular(20)
-        //         ),
-        //         elevation: 8
-        //     ),
-        //     onPressed: () {},
-        //     child: const Text("Why to wait!", style: TextStyle(fontSize: 20)),
-        //   ),
-        // ),
         image: ClipRRect(
           borderRadius: BorderRadius.circular(40),
           child: Center(
@@ -78,21 +48,6 @@ class _IntroScreenState extends State<IntroScreen> {
     PageViewModel(
         title: 'All Types Offers \n Within Your Reach',
         body: 'Here you can have whatever description you would like to have, you can type it all in here',
-        // footer: SizedBox(
-        //   height: 45,
-        //   width: 300,
-        //   child: ElevatedButton(
-        //     style: ElevatedButton.styleFrom(
-        //         backgroundColor: Colors.green,
-        //         shape: RoundedRectangleBorder(
-        //             borderRadius: BorderRadius.circular(20)
-        //         ),
-        //         elevation: 8
-        //     ),
-        //     onPressed: () {},
-        //     child: const Text("Let's Start", style: TextStyle(fontSize: 20)),
-        //   ),
-        // ),
         image: ClipRRect(
           borderRadius: BorderRadius.circular(40),
           child: Center(
@@ -115,15 +70,15 @@ class _IntroScreenState extends State<IntroScreen> {
         child: IntroductionScreen(
           pages: pages,
           dotsDecorator: const DotsDecorator(
-            size: Size(15,15),
-            color: Colors.blue,
-            activeSize: Size.square(20),
-            activeColor: Colors.red,
+            size: Size(12,12),
+            color: Colors.grey,
+            activeSize: Size.square(15),
+            activeColor: Colors.black,
           ),
           showDoneButton: true,
-          done: const Icon(Icons.arrow_forward, size: 25,),
+          done: const Icon(Icons.arrow_forward, size: 25, color: Colors.black),
           showNextButton: true,
-          next: const Icon(Icons.arrow_forward, size: 25,),
+          next: const Icon(Icons.arrow_forward, size: 25,color: Colors.black),
           onDone: () => onDone(context),
           curve: Curves.bounceOut,
         ),

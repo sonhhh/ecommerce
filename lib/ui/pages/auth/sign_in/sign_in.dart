@@ -1,4 +1,4 @@
-import 'package:ecommerce/ui/pages/bottom_navigation_bar/bottom_bar.dart';
+
 import 'package:ecommerce/ui/pages/successfull/successfull.dart';
 import 'package:ecommerce/ui/pages/widget/text_field/text_field_email.dart';
 import 'package:ecommerce/ui/pages/widget/text_field/text_field_password.dart';

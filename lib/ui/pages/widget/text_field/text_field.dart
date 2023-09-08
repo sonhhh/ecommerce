@@ -1,7 +1,7 @@
 
 import 'package:flutter/material.dart';
 
-class AppTextField extends StatelessWidget {
+class AppTextFieldApply extends StatelessWidget {
   final TextEditingController? controller;
   final ValueChanged<String>? onChanged;
   final TextInputType? textInputType;
@@ -9,7 +9,7 @@ class AppTextField extends StatelessWidget {
   final String? hintText;
   final VoidCallback? onButtonPressed;
 
-  const AppTextField({
+  const AppTextFieldApply({
     Key? key,
     this.controller,
     this.onChanged,

@@ -22,7 +22,7 @@ class AppEmailTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: MediaQuery.of(context).size.width,
+        width: MediaQuery.of(context).size.width,
       child: TextFormField(
         controller: textEditingController,
         focusNode: focusNode,
@@ -32,8 +32,6 @@ class AppEmailTextField extends StatelessWidget {
         borderSide: BorderSide(
         width: 3, color: Colors.black),
           ),
-       //   border: const OutlineInputBorder(),
-         // prefixIcon: const Icon(Icons.email_outlined),
         ),
         keyboardType: TextInputType.emailAddress,
         onChanged: onChanged,

@@ -183,7 +183,7 @@ class _MyCartState extends State<MyCart> {
                   },
                 ),
               ),
-              AppTextField(
+              AppTextFieldApply(
                 controller: controller,
                 hintText: 'Promo Code',
               ),
@@ -194,7 +194,7 @@ class _MyCartState extends State<MyCart> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    "Total(${selectedProducts.length ?? 0} item): ",
+                    "Total(${selectedProducts.length} item): ",
                     style: const TextStyle(fontSize: 16, color: Colors.grey),
                   ),
                   Text(

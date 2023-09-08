@@ -1,4 +1,5 @@
 import 'package:ecommerce/model/enum/load_status.dart';
+import 'package:ecommerce/ui/pages/detail/detail_products.dart';
 import 'package:ecommerce/ui/pages/products/products_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -19,11 +20,8 @@ class _ProductsScreenState extends State<ProductsScreen> {
   @override
   void initState() {
     provider = context.read<ProductsProvider>();
-    // TODO: implement initState
     super.initState();
-  //  provider.init(widget.categoryName);
-    WidgetsBinding.instance.addPostFrameCallback(
-        (_) => provider.getProducts(widget.categoryName ?? ''));
+    provider.initProduct(widget.categoryName ?? '');
   }
 
   @override
@@ -37,14 +35,23 @@ class _ProductsScreenState extends State<ProductsScreen> {
         child: Column(
           children: [
             const SizedBox(height: 50),
-            const Row(
-              mainAxisAlignment: MainAxisAlignment.end,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Icon(
+                IconButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    icon: const Icon(
+                      Icons.arrow_back,
+                      color: Colors.black,
+                      size: 25,
+                    )),
+                const Icon(
                   Icons.search,
                   color: Colors.black,
                   size: 25,
-                )
+                ),
               ],
             ),
             Expanded(
@@ -59,6 +66,7 @@ class _ProductsScreenState extends State<ProductsScreen> {
                         crossAxisCount: 2,
                         crossAxisSpacing: 10,
                         mainAxisSpacing: 10,
+                        mainAxisExtent: 200,
                         childAspectRatio: 3 / 2,
                       ),
                       shrinkWrap: true,
@@ -66,34 +74,57 @@ class _ProductsScreenState extends State<ProductsScreen> {
                       itemCount: product.products?.length,
                       itemBuilder: (context, index) {
                         final pro = product.products?[index];
-                        return Column(
-                          children: [
-                            Text(pro?.category ?? '',
+                        return GestureDetector(
+                          onTap: () {
+                            Navigator.push(context, MaterialPageRoute(builder: (context) {
+                              return Detail(category: pro?.category,
+                                title: pro?.title,
+                                price: pro?.price,
+                                image: pro?.image,
+                              description: pro?.description,);
+                            },));
+                          },
+                          child: Column(
+                            children: [
+                              SizedBox(
+                                  height: 120,
+                                  child: Image.network(
+                                    pro?.image ?? '',
+                                    fit: BoxFit.cover,
+                                  )),
+                              Text(
+                                pro?.category ?? '',
                                 style: const TextStyle(
                                     color: Colors.black,
-                                    fontSize: 30,
-                                    fontWeight: FontWeight.bold)),
-                            Stack(
-                              children: [
-                                Positioned.fill(
-                                    child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(15),
-                                  child: Image.network(pro?.image ?? '',
-                                      fit: BoxFit.cover),
-                                )),
-                                Positioned(child: Text(pro?.title ?? '')),
-                              ],
-                            ),
-                          ],
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                              Text(
+                                pro?.title ?? '',
+                                overflow: TextOverflow.ellipsis,
+                                style:
+                                    const TextStyle(fontSize: 12, color: Colors.grey),
+                              ),
+                              Text(
+                                '\$${pro?.price ?? ''}',
+                                style: const TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold),
+                              )
+                            ],
+                          ),
                         );
                       },
                     ),
                   );
                 } else {
-                  return const SizedBox(
-                    height: 50,
-                    width: 50,
-                    child: CircularProgressIndicator(),
+                  return  const Center(
+                    child: SizedBox(
+                      height: 50,
+                      width: 50,
+                      child: CircularProgressIndicator(),
+                    ),
                   );
                 }
               }),
