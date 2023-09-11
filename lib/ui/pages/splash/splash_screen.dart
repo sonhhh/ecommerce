@@ -32,12 +32,11 @@ class _SplashScreenState extends State<SplashScreen> {
                 onPressed: () {
                   Navigator.pushReplacement(context, MaterialPageRoute(
                     builder: (context) {
-                      return SignIn();
+                      return const SignIn();
                     },
                   ));
                 },
                 style: ButtonStyle(
-                  //  elevation: MaterialStateProperty.all(0),
                   overlayColor: MaterialStateProperty.all(Colors.black38),
                   backgroundColor: MaterialStateProperty.all(Colors.white),
                 ),
@@ -59,7 +58,7 @@ class _SplashScreenState extends State<SplashScreen> {
                 onPressed: () {
                   Navigator.pushReplacement(context, MaterialPageRoute(
                     builder: (context) {
-                      return SignUp();
+                      return const SignUp();
                     },
                   ));
                 },

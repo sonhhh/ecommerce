@@ -1,12 +1,8 @@
 import 'package:ecommerce/API/api_util.dart';
-import 'package:ecommerce/ui/pages/bottom_navigation_bar/bottom_bar.dart';
-
+import 'package:ecommerce/ui/pages/auth/sign_in/provider_sign_in.dart';
 import 'package:ecommerce/ui/pages/page_view/categori_page/home_provider.dart';
-
 import 'package:ecommerce/ui/pages/products/products_provider.dart';
 import 'package:ecommerce/ui/pages/splash/splash.dart';
-
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -19,9 +15,7 @@ void main() async {
 
 class MyApp extends StatelessWidget {
   final bool showOnboarding;
-
   const MyApp(this.showOnboarding, {Key? key}) : super(key: key);
-
 
 
   @override
@@ -34,6 +28,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(
           create: (_) => ProductsProvider(ApiUtil.apiClient),
         ),
+        ChangeNotifierProvider(create: (_) => ProviderSignIn(ApiUtil.apiClient))
       ],
       child: MaterialApp(
           title: 'Flutter Demo',

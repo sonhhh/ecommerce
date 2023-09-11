@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:ecommerce/API/api_categories/products.dart';
+import 'package:ecommerce/API/api_categories/user.dart';
 import 'package:retrofit/retrofit.dart';
 
 part 'api_categories.g.dart';
@@ -15,4 +16,9 @@ abstract class RestClient {
   Future<List<Products>> getProducts({
     @Query('limit') String limit = '5',
   });
+  @POST('/auth/login')
+  Future<User> getLogin(
+      @Field('username') String username,
+      @Field('password') String password,
+      );
 }
