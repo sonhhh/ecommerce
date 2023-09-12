@@ -2,8 +2,8 @@ import 'package:ecommerce/model/enum/data_fix.dart';
 import 'package:ecommerce/model/enum/load_status.dart';
 import 'package:ecommerce/ui/pages/detail/detail_products.dart';
 import 'package:ecommerce/ui/pages/page_view/account/account.dart';
-import 'package:ecommerce/ui/pages/page_view/categori_page/home_page.dart';
-import 'package:ecommerce/ui/pages/page_view/categori_page/home_provider.dart';
+import 'package:ecommerce/ui/pages/page_view/categori_page/categories_page.dart';
+import 'package:ecommerce/ui/pages/page_view/categori_page/categories_provider.dart';
 import 'package:ecommerce/ui/pages/products/products.dart';
 import 'package:ecommerce/ui/pages/products/products_provider.dart';
 import 'package:ecommerce/ui/pages/widget/text_field/text_field_search.dart';
@@ -21,13 +21,13 @@ class HomePageScreen extends StatefulWidget {
 
 class _HomePageScreenState extends State<HomePageScreen> {
   late TextEditingController searchController;
-  late HomeProvider provider;
+  late CategoriesProvider provider;
   late ProductsProvider providerProducts;
 
   @override
   void initState() {
     // TODO: implement initState
-    provider = context.read<HomeProvider>();
+    provider = context.read<CategoriesProvider>();
     providerProducts = context.read<ProductsProvider>();
     searchController = TextEditingController();
     super.initState();
@@ -186,7 +186,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                   ),
                   SizedBox(
                     height: 40,
-                    child: Consumer<HomeProvider>(
+                    child: Consumer<CategoriesProvider>(
                       builder: (context, categorise, child) {
                         if (categorise.loadStatus == LoadStatus.success) {
                           return ListView.builder(
@@ -244,7 +244,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                   ),
                   SizedBox(
                     height: 40,
-                    child: Consumer<HomeProvider>(
+                    child: Consumer<CategoriesProvider>(
                         builder: (context, categori, child) {
                           if (categori.loadStatus == LoadStatus.success) {
                             return Row(
@@ -289,7 +289,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                   ),
                   SizedBox(
                     height: 500,
-                    child: Consumer<HomeProvider>(
+                    child: Consumer<CategoriesProvider>(
                       builder: (context, product, child) {
                         if (product.loadStatus == LoadStatus.success) {
                           return GridView.builder(

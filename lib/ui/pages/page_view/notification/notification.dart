@@ -22,17 +22,8 @@ class _NotificationScaState extends State<NotificationPage> {
               children: [
                 const SizedBox(height: 36),
                 Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    IconButton(
-                        onPressed: () {
-                        },
-                        icon: const Icon(
-                          Icons.arrow_back,
-                          color: Colors.black,
-                          size: 20,
-                        )),
-                    const Spacer(),
                     IconButton(
                         onPressed: () {},
                         icon: const Icon(

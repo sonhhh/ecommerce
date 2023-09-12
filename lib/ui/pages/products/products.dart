@@ -33,6 +33,7 @@ class _ProductsScreenState extends State<ProductsScreen> {
         width: double.infinity,
         decoration: const BoxDecoration(color: Colors.white),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const SizedBox(height: 50),
             Row(
@@ -54,6 +55,9 @@ class _ProductsScreenState extends State<ProductsScreen> {
                 ),
               ],
             ),
+            Text(widget.categoryName ?? "", style: TextStyle(
+              fontWeight: FontWeight.bold, color: Colors.black, fontSize: 20
+            )),
             Expanded(
               child: Consumer<ProductsProvider>(
                   builder: (context, product, child) {

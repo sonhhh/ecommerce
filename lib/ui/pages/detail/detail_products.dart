@@ -1,8 +1,13 @@
+import 'package:ecommerce/API/api_categories/carts.dart';
+import 'package:ecommerce/model/enum/data_fix.dart';
+import 'package:ecommerce/ui/pages/detail/detail_provider.dart';
 import 'package:ecommerce/ui/pages/detail/quantity_selector.dart';
+import 'package:ecommerce/ui/pages/my_cart/my_cart.dart';
 import 'package:ecommerce/ui/pages/order_tracking/order_tracking.dart';
 import 'package:ecommerce/ui/pages/payment/payment.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:provider/provider.dart';
 
 class Detail extends StatefulWidget {
   final String? category;
@@ -19,7 +24,7 @@ class Detail extends StatefulWidget {
 
 class _DetailState extends State<Detail> {
   int selectedQuantity = 1;
-
+  Carts? carts;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -59,14 +64,19 @@ class _DetailState extends State<Detail> {
           Container(
             padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 12),
             height: 308,
-            decoration: BoxDecoration(boxShadow: [
-              BoxShadow(
-                color: Colors.grey.withOpacity(0.5),
-                spreadRadius: 5,
-                blurRadius: 7,
-                offset: const Offset(0, 3), // changes position of shadow
-              ),
-            ], color: Colors.white, borderRadius: BorderRadius.only(topLeft: Radius.circular(24), topRight: Radius.circular(24))),
+            decoration: BoxDecoration(
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.grey.withOpacity(0.5),
+                    spreadRadius: 5,
+                    blurRadius: 7,
+                    offset: const Offset(0, 3), // changes position of shadow
+                  ),
+                ],
+                color: Colors.white,
+                borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(24),
+                    topRight: Radius.circular(24))),
             child: SingleChildScrollView(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -122,9 +132,6 @@ class _DetailState extends State<Detail> {
                       print(rating);
                     },
                   ),
-                  // const SizedBox(
-                  //   height: 20,
-                  // ),
                   SizedBox(
                     height: 20,
                   ),
@@ -150,7 +157,7 @@ class _DetailState extends State<Detail> {
                             style: TextStyle(color: Colors.grey, fontSize: 12),
                           ),
                           Text(
-                            '\$${widget.price}',
+                            '\$${(widget.price! * selectedQuantity).toStringAsFixed(2)}',
                             style: const TextStyle(
                                 fontSize: 20,
                                 color: Colors.black,
@@ -158,36 +165,40 @@ class _DetailState extends State<Detail> {
                           )
                         ],
                       ),
-                      ElevatedButton(
-                          onPressed: () {
-                            Navigator.push(context, MaterialPageRoute(builder: (context) {
-                              return Payment();
-                            },));
-                          },
-                          style: ButtonStyle(
-                            elevation: MaterialStateProperty.all(0),
-                            overlayColor:
+                      Consumer<DetailProvider>(
+                        builder: (context, cartsProvide, child) {
+                          return ElevatedButton(
+                              onPressed: () async{
+                                try{
+                                  await cartsProvide.postCart(carts!);
+                                }catch(e){}
+                              },
+                              style: ButtonStyle(
+                                elevation: MaterialStateProperty.all(0),
+                                overlayColor:
                                 MaterialStateProperty.all(Colors.white38),
-                            backgroundColor:
+                                backgroundColor:
                                 MaterialStateProperty.all(Colors.black87),
-                          ),
-                          child: const Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Icon(
-                                Icons.shopping_bag_outlined,
-                                size: 24,
-                                color: Colors.white,
                               ),
-                              Text(
-                                'Add to cart',
-                                style: TextStyle(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.white),
-                              )
-                            ],
-                          ))
+                              child: const Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Icon(
+                                    Icons.shopping_bag_outlined,
+                                    size: 24,
+                                    color: Colors.white,
+                                  ),
+                                  Text(
+                                    'Add to cart',
+                                    style: TextStyle(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.white),
+                                  )
+                                ],
+                              ));
+                        },
+                      )
                     ],
                   )
                 ],

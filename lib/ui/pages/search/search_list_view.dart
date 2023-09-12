@@ -1,5 +1,5 @@
 import 'package:ecommerce/model/enum/load_status.dart';
-import 'package:ecommerce/ui/pages/page_view/categori_page/home_provider.dart';
+import 'package:ecommerce/ui/pages/page_view/categori_page/categories_provider.dart';
 
 import 'package:ecommerce/ui/pages/products/products.dart';
 import 'package:ecommerce/ui/pages/widget/text_field/text_field_search.dart';
@@ -15,11 +15,11 @@ class SearchListView extends StatefulWidget {
 
 class _SearchListViewState extends State<SearchListView> {
   late TextEditingController searchController;
-  late HomeProvider provider;
+  late CategoriesProvider provider;
 
   @override
   void initState() {
-    provider = context.read<HomeProvider>();
+    provider = context.read<CategoriesProvider>();
     super.initState();
     searchController = TextEditingController();
     WidgetsBinding.instance.addPostFrameCallback((_) => provider.initData());
@@ -55,7 +55,7 @@ class _SearchListViewState extends State<SearchListView> {
             ),
             //const SizedBox(height: 30),
             Expanded(
-              child: Consumer<HomeProvider>(
+              child: Consumer<CategoriesProvider>(
                 builder: (context, provider, child) {
                   if (provider.loadStatus == LoadStatus.success) {
                     return SizedBox(

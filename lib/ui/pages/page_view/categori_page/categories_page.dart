@@ -1,5 +1,5 @@
 import 'package:ecommerce/model/enum/load_status.dart';
-import 'package:ecommerce/ui/pages/page_view/categori_page/home_provider.dart';
+import 'package:ecommerce/ui/pages/page_view/categori_page/categories_provider.dart';
 import 'package:ecommerce/ui/pages/products/products.dart';
 
 import 'package:flutter/material.dart';
@@ -13,11 +13,11 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  late HomeProvider provider;
+  late CategoriesProvider provider;
 
   @override
   void initState() {
-    provider = context.read<HomeProvider>();
+    provider = context.read<CategoriesProvider>();
     super.initState();
     // WidgetsBinding.instance.addPostFrameCallback((_) => provider.initData());
     provider.initData();
@@ -65,7 +65,7 @@ class _HomePageState extends State<HomePage> {
                   height: 10,
                 ),
                 Expanded(
-                  child: Consumer<HomeProvider>(
+                  child: Consumer<CategoriesProvider>(
                     builder: (_, provider, child) {
                       if (provider.loadStatus == LoadStatus.success) {
                         return ListView.builder(

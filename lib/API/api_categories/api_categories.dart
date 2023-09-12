@@ -1,7 +1,11 @@
 import 'package:dio/dio.dart';
+import 'package:ecommerce/API/api_categories/carts.dart';
+import 'package:ecommerce/API/api_categories/carts_all.dart';
 import 'package:ecommerce/API/api_categories/products.dart';
 import 'package:ecommerce/API/api_categories/user.dart';
 import 'package:retrofit/retrofit.dart';
+
+import '../../ui/pages/page_view/cart/cart.dart';
 
 part 'api_categories.g.dart';
 
@@ -21,4 +25,10 @@ abstract class RestClient {
       @Field('username') String username,
       @Field('password') String password,
       );
+  @POST('/carts')
+  Future<Carts> getAllCart(
+      @Body() Carts carts
+      );
+  @GET('/carts')
+  Future<List<CartsAll>> getCartsAll();
 }

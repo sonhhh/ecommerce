@@ -3,13 +3,13 @@ import 'package:ecommerce/API/api_categories/products.dart';
 import 'package:ecommerce/model/enum/load_status.dart';
 import 'package:flutter/cupertino.dart';
 
-class HomeProvider with ChangeNotifier {
+class CategoriesProvider with ChangeNotifier {
   final RestClient restClient;
   List<String>? categories;
   List<Products>? products;
   LoadStatus loadStatus = LoadStatus.loading;
   String? selectedCategoryName;
-  HomeProvider(this.restClient,
+  CategoriesProvider(this.restClient,
       {this.loadStatus = LoadStatus.loading, this.categories});
   int selectedCategoryIndex = 0  ;
   Future<void> initData() async {

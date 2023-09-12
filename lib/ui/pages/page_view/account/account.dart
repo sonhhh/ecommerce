@@ -22,17 +22,8 @@ class _AccountState extends State<Account> {
                 height: 40,
               ),
               Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  IconButton(
-                      onPressed: () {
-
-                      },
-                      icon: const Icon(
-                        Icons.arrow_back,
-                        color: Colors.black,
-                        size: 20,
-                      )),
                   IconButton(
                       onPressed: () {},
                       icon: const Icon(
@@ -283,7 +274,7 @@ class _AccountState extends State<Account> {
                   borderRadius: BorderRadius.circular(15),
                   border: Border.all(
                     color: Colors.grey,
-                    width: 2,
+                    width: 1,
                   ),
                 ),
                 child: Column(

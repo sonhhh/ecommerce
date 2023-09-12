@@ -1,4 +1,3 @@
-import 'package:ecommerce/model/enum/load_status.dart';
 import 'package:ecommerce/ui/pages/auth/sign_in/provider_sign_in.dart';
 import 'package:ecommerce/ui/pages/successfull/successfull.dart';
 import 'package:ecommerce/ui/pages/widget/text_field/text_field_email.dart';
@@ -30,10 +29,6 @@ class _SignInState extends State<SignIn> {
     passwordTextController = TextEditingController(text: '83r5^_');
     obscurePasswordController = ObscureTextController();
     signInProvider = context.read<ProviderSignIn>();
-    // signInProvider.getUser(
-    //   username = 'mor_2314',
-    //   password = '83r5^_',
-    // );
   }
 
   @override
@@ -45,7 +40,6 @@ class _SignInState extends State<SignIn> {
           padding: const EdgeInsets.all(15),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-            //mainAxisAlignment: MainAxisAlignment.start,
             children: [
               const SizedBox(
                 height: 100,
@@ -100,7 +94,6 @@ class _SignInState extends State<SignIn> {
               ),
               Consumer<ProviderSignIn>(
                 builder: (context, login, child) {
-               //   if (login.loadStatus == LoadStatus.success) {
                     return Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 20),
                       child: SizedBox(
@@ -134,16 +127,6 @@ class _SignInState extends State<SignIn> {
                         ),
                       ),
                     );
-
-                  // else {
-                  //   return SizedBox(
-                  //     height: 40,
-                  //     width: 40,
-                  //     child: Center(
-                  //       child: CircularProgressIndicator(),
-                  //     ),
-                  //   );
-                  // }
                 }),
               const Center(child: Text('----------or----------')),
               Padding(
@@ -218,7 +201,6 @@ class _SignInState extends State<SignIn> {
                   child: ElevatedButton(
                     onPressed: () {},
                     style: ButtonStyle(
-                      //  elevation: MaterialStateProperty.all(0),
                       overlayColor: MaterialStateProperty.all(
                           Colors.white.withOpacity(0.2)),
                       backgroundColor: MaterialStateProperty.all(Colors.white),
