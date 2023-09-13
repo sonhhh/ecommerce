@@ -31,4 +31,8 @@ abstract class RestClient {
       );
   @GET('/carts')
   Future<List<CartsAll>> getCartsAll();
+  @GET('/products/{productId}')
+  Future<Products> getSingleProduct(
+      @Path('productId')  int productId
+      );
 }

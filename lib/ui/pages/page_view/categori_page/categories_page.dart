@@ -19,7 +19,6 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     provider = context.read<CategoriesProvider>();
     super.initState();
-    // WidgetsBinding.instance.addPostFrameCallback((_) => provider.initData());
     provider.initData();
   }
 
@@ -96,7 +95,6 @@ class _HomePageState extends State<HomePage> {
                                       borderRadius: BorderRadius.circular(35),
                                     ),
                                     child: Row(
-                                      // mainAxisAlignment: MainAxisAlignment.center,
                                       children: [
                                         const Icon(Icons.account_balance,
                                             color: Colors.white, size: 15),

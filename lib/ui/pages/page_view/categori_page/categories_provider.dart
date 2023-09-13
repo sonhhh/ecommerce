@@ -26,7 +26,7 @@ class CategoriesProvider with ChangeNotifier {
         } else {
           loadStatus = LoadStatus.failure;
         }
-        selectedCategoryName = selectedCategory; // Thay đổi thành selectedCategory
+        selectedCategoryName = selectedCategory;
       } else {
         loadStatus = LoadStatus.failure;
       }
