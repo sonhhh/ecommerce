@@ -55,9 +55,11 @@ class _ProductsScreenState extends State<ProductsScreen> {
                 ),
               ],
             ),
-            Text(widget.categoryName ?? "", style: TextStyle(
-              fontWeight: FontWeight.bold, color: Colors.black, fontSize: 20
-            )),
+            Text(widget.categoryName ?? "",
+                style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black,
+                    fontSize: 20)),
             Expanded(
               child: Consumer<ProductsProvider>(
                   builder: (context, product, child) {
@@ -80,13 +82,18 @@ class _ProductsScreenState extends State<ProductsScreen> {
                         final pro = product.products?[index];
                         return GestureDetector(
                           onTap: () {
-                            Navigator.push(context, MaterialPageRoute(builder: (context) {
-                              return Detail(category: pro?.category,
-                                title: pro?.title,
-                                price: pro?.price,
-                                image: pro?.image,
-                              description: pro?.description,);
-                            },));
+                            Navigator.push(context, MaterialPageRoute(
+                              builder: (context) {
+                                return Detail(
+                                  id: pro?.id,
+                                  category: pro?.category,
+                                  title: pro?.title,
+                                  price: pro?.price,
+                                  image: pro?.image,
+                                  description: pro?.description,
+                                );
+                              },
+                            ));
                           },
                           child: Column(
                             children: [
@@ -106,8 +113,8 @@ class _ProductsScreenState extends State<ProductsScreen> {
                               Text(
                                 pro?.title ?? '',
                                 overflow: TextOverflow.ellipsis,
-                                style:
-                                    const TextStyle(fontSize: 12, color: Colors.grey),
+                                style: const TextStyle(
+                                    fontSize: 12, color: Colors.grey),
                               ),
                               Text(
                                 '\$${pro?.price ?? ''}',
@@ -123,7 +130,7 @@ class _ProductsScreenState extends State<ProductsScreen> {
                     ),
                   );
                 } else {
-                  return  const Center(
+                  return const Center(
                     child: SizedBox(
                       height: 50,
                       width: 50,

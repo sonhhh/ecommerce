@@ -19,7 +19,7 @@ class _ColorDropdownState extends State<ColorDropdown> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.symmetric(vertical: 4),
+      margin: const EdgeInsets.symmetric(vertical: 4),
       child: Row(
         children: [
           Container(
@@ -64,7 +64,7 @@ class _ColorDropdownState extends State<ColorDropdown> {
                           ),
                         ),
                         child: widget.colorMap[widget.selectedColor] == color
-                            ? Align(
+                            ? const Align(
                           alignment: Alignment.center,
                           child: Icon(Icons.check, color: Colors.white, size: 12),
                         )

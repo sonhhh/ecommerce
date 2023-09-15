@@ -23,16 +23,17 @@ class _QuantitySelectorState extends State<QuantitySelector> {
   Widget build(BuildContext context) {
     return Container(
       height: 28,
+      margin: EdgeInsets.zero,
+      padding: EdgeInsets.zero,
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(30),
+        borderRadius: BorderRadius.circular(20),
         color: Colors.grey,
       ),
-      //padding: EdgeInsets.all(8),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           IconButton(
-            icon: const Icon(Icons.remove,size: 16),
+            icon: const Icon(Icons.remove,size: 14,color: Colors.black),
             onPressed: () {
               setState(() {
                 if (_quantity > 0) {
@@ -42,9 +43,9 @@ class _QuantitySelectorState extends State<QuantitySelector> {
               });
             },
           ),
-          Text('$_quantity'),
+          Text('$_quantity', style: const TextStyle(fontSize: 14, color: Colors.black)),
           IconButton(
-            icon: const Icon(Icons.add,size: 16,),
+            icon: const Icon(Icons.add,size: 16,color: Colors.black),
             onPressed: () {
               setState(() {
                 _quantity++;

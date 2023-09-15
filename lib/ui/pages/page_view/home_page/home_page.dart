@@ -122,7 +122,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                           spreadRadius: 4,
                           blurRadius: 4,
                           offset:
-                          const Offset(0, 1), // changes position of shadow
+                              const Offset(0, 1), // changes position of shadow
                         ),
                       ],
                     ),
@@ -157,7 +157,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                             Text(
                               "100000000000",
                               style:
-                              TextStyle(fontSize: 10, color: Colors.black),
+                                  TextStyle(fontSize: 10, color: Colors.black),
                             ),
                           ],
                         ),
@@ -210,7 +210,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                               ? Colors.black
                                               : Colors.white,
                                           borderRadius:
-                                          BorderRadius.circular(30),
+                                              BorderRadius.circular(30),
                                           border: Border.all(
                                               color: Colors.black, width: 1)),
                                       child: Center(
@@ -246,46 +246,46 @@ class _HomePageScreenState extends State<HomePageScreen> {
                     height: 40,
                     child: Consumer<CategoriesProvider>(
                         builder: (context, categori, child) {
-                          if (categori.loadStatus == LoadStatus.success) {
-                            return Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  'Top ${categori.selectedCategoryName ?? ''}',
-                                  style: const TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                                GestureDetector(
-                                  child: const Text(
-                                    'View All',
-                                    style:
+                      if (categori.loadStatus == LoadStatus.success) {
+                        return Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              'Top ${categori.selectedCategoryName ?? ''}',
+                              style: const TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                            GestureDetector(
+                              child: const Text(
+                                'View All',
+                                style:
                                     TextStyle(fontSize: 12, color: Colors.grey),
-                                  ),
-                                  onTap: () {
-                                    Navigator.push(context, MaterialPageRoute(
-                                      builder: (context) {
-                                        return ProductsScreen(
-                                          categoryName:
-                                          categori.selectedCategoryName,
-                                        );
-                                      },
-                                    ));
-                                  },
-                                )
-                              ],
-                            );
-                          } else {
-                            return const Center(
-                              child: SizedBox(
-                                height: 20,
-                                width: 20,
-                                child: CircularProgressIndicator(),
                               ),
-                            );
-                          }
-                        }),
+                              onTap: () {
+                                Navigator.push(context, MaterialPageRoute(
+                                  builder: (context) {
+                                    return ProductsScreen(
+                                      categoryName:
+                                          categori.selectedCategoryName,
+                                    );
+                                  },
+                                ));
+                              },
+                            )
+                          ],
+                        );
+                      } else {
+                        return const Center(
+                          child: SizedBox(
+                            height: 20,
+                            width: 20,
+                            child: CircularProgressIndicator(),
+                          ),
+                        );
+                      }
+                    }),
                   ),
                   SizedBox(
                     height: 500,
@@ -294,7 +294,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                         if (product.loadStatus == LoadStatus.success) {
                           return GridView.builder(
                               gridDelegate:
-                              const SliverGridDelegateWithFixedCrossAxisCount(
+                                  const SliverGridDelegateWithFixedCrossAxisCount(
                                 crossAxisCount: 2,
                                 mainAxisExtent: 250,
                                 mainAxisSpacing: 10,
@@ -304,22 +304,25 @@ class _HomePageScreenState extends State<HomePageScreen> {
                               shrinkWrap: true,
                               scrollDirection: Axis.vertical,
                               itemCount:
-                              (product.products?.length ?? 0) > 4 ? 4 : 4,
+                                  (product.products?.length ?? 0) > 4 ? 4 : 4,
                               itemBuilder: (context, index) {
                                 final pro = product.products?[index];
                                 if (product.selectedCategoryName ==
                                     pro?.category) {
                                   return GestureDetector(
                                     onTap: () {
-                                      Navigator.push(context, MaterialPageRoute(builder: (context) {
-                                        return Detail(
-                                          title: pro?.title,
-                                          image: pro?.image,
-                                          description: pro?.description,
-                                          price: pro?.price,
-                                          category: pro?.category,
-                                        );
-                                      },));
+                                      Navigator.push(context, MaterialPageRoute(
+                                        builder: (context) {
+                                          return Detail(
+                                            title: pro?.title,
+                                            image: pro?.image,
+                                            description: pro?.description,
+                                            price: pro?.price,
+                                            category: pro?.category,
+                                            id: pro?.id,
+                                          );
+                                        },
+                                      ));
                                     },
                                     child: Column(
                                       children: [
@@ -328,7 +331,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                             Positioned(
                                               child: ClipRRect(
                                                 borderRadius:
-                                                BorderRadius.circular(20),
+                                                    BorderRadius.circular(20),
                                                 child: Image.network(
                                                   pro?.image ?? '',
                                                   fit: BoxFit.cover,
@@ -491,7 +494,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                               children: [
                                                 GridView.builder(
                                                   gridDelegate:
-                                                  const SliverGridDelegateWithFixedCrossAxisCount(
+                                                      const SliverGridDelegateWithFixedCrossAxisCount(
                                                     crossAxisCount: 2,
                                                     mainAxisExtent: 250,
                                                     mainAxisSpacing: 10,
@@ -499,10 +502,10 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                                   ),
                                                   // scrollDirection: Axis.vertical,
                                                   physics:
-                                                  const NeverScrollableScrollPhysics(),
+                                                      const NeverScrollableScrollPhysics(),
                                                   shrinkWrap: true,
                                                   itemCount: (product
-                                                      .products?.length ??
+                                                          .products?.length ??
                                                       0),
                                                   itemBuilder:
                                                       (context, index) {
@@ -515,48 +518,46 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                                             children: [
                                                               Positioned(
                                                                   child:
-                                                                  ClipRRect(
-                                                                    borderRadius:
+                                                                      ClipRRect(
+                                                                borderRadius:
                                                                     const BorderRadius
-                                                                        .all(
-                                                                        Radius
-                                                                            .circular(
+                                                                            .all(
+                                                                        Radius.circular(
                                                                             20)),
-                                                                    child: Image
-                                                                        .network(
-                                                                      arr
-                                                                          ?.image ??
-                                                                          '',
-                                                                      fit: BoxFit
-                                                                          .cover,
-                                                                      height: 170,
-                                                                      width: 180,
-                                                                    ),
-                                                                  )),
+                                                                child: Image
+                                                                    .network(
+                                                                  arr?.image ??
+                                                                      '',
+                                                                  fit: BoxFit
+                                                                      .cover,
+                                                                  height: 170,
+                                                                  width: 180,
+                                                                ),
+                                                              )),
                                                             ],
                                                           ),
                                                           Center(
                                                             child: Text(
                                                               arr?.title ?? '',
                                                               overflow:
-                                                              TextOverflow
-                                                                  .ellipsis,
+                                                                  TextOverflow
+                                                                      .ellipsis,
                                                               maxLines: 2,
                                                               style: const TextStyle(
                                                                   color: Colors
                                                                       .black,
                                                                   fontSize: 16,
                                                                   fontWeight:
-                                                                  FontWeight
-                                                                      .bold),
+                                                                      FontWeight
+                                                                          .bold),
                                                             ),
                                                           ),
                                                           Text(
                                                             '\$${arr?.price}',
                                                             style: const TextStyle(
                                                                 fontWeight:
-                                                                FontWeight
-                                                                    .bold,
+                                                                    FontWeight
+                                                                        .bold,
                                                                 fontSize: 13,
                                                                 color: Colors
                                                                     .black),
@@ -583,7 +584,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                               height: 210,
                               child: GridView.builder(
                                 gridDelegate:
-                                const SliverGridDelegateWithFixedCrossAxisCount(
+                                    const SliverGridDelegateWithFixedCrossAxisCount(
                                   crossAxisCount: 2,
                                   mainAxisExtent: 250,
                                   mainAxisSpacing: 10,
@@ -593,21 +594,22 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                 physics: const NeverScrollableScrollPhysics(),
                                 shrinkWrap: true,
                                 itemCount:
-                                (product.products?.length ?? 0) > 2 ? 2 : 2,
+                                    (product.products?.length ?? 0) > 2 ? 2 : 2,
                                 itemBuilder: (context, index) {
                                   final arr = product.products?[index];
                                   return GestureDetector(
                                     onTap: () {
-                                      Navigator.push(context,
-                                          MaterialPageRoute(builder: (context) {
-                                            return Detail(
-                                              title: arr?.title,
-                                              image: arr?.image,
-                                              category: arr?.category,
-                                              description: arr?.description,
-                                              price: arr?.price,
-                                                );
-                                          },));
+                                      Navigator.push(context, MaterialPageRoute(
+                                        builder: (context) {
+                                          return Detail(
+                                            title: arr?.title,
+                                            image: arr?.image,
+                                            category: arr?.category,
+                                            description: arr?.description,
+                                            price: arr?.price,
+                                          );
+                                        },
+                                      ));
                                     },
                                     child: Column(
                                       children: [
@@ -615,16 +617,16 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                           children: [
                                             Positioned(
                                                 child: ClipRRect(
-                                                  borderRadius:
+                                              borderRadius:
                                                   const BorderRadius.all(
                                                       Radius.circular(20)),
-                                                  child: Image.network(
-                                                    arr?.image ?? '',
-                                                    fit: BoxFit.cover,
-                                                    height: 170,
-                                                    width: 180,
-                                                  ),
-                                                )),
+                                              child: Image.network(
+                                                arr?.image ?? '',
+                                                fit: BoxFit.cover,
+                                                height: 170,
+                                                width: 180,
+                                              ),
+                                            )),
                                           ],
                                         ),
                                         Center(
@@ -691,21 +693,33 @@ class _HomePageScreenState extends State<HomePageScreen> {
                     itemCount: categories.length,
                     itemBuilder: (context, index) {
                       return Container(
-                        height: 80,
+                        height: 85,
                         margin: const EdgeInsets.all(5),
                         padding: const EdgeInsets.all(8),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(15),
-                          color: Colors.grey,
+                          color: Colors.white,
+                          border: Border.all(color: Colors.black, width: 1),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.grey.withOpacity(0.5),
+                              spreadRadius: 3,
+                              blurRadius: 1,
+                              offset:
+                              const Offset(0, 1), // changes position of shadow
+                            ),
+                          ],
                         ),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Image.network(
-                              detail[index].image ?? '',
-                              fit: BoxFit.cover,
-                              height: 100,
-                              width: 80,
+                            ClipRRect(borderRadius: BorderRadius.circular(16),
+                              child: Image.network(
+                                detail[index].image ?? '',
+                                fit: BoxFit.cover,
+                                height: 100,
+                                width: 120,
+                              ),
                             ),
                             Column(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,

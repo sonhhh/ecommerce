@@ -1,22 +1,26 @@
 import 'package:ecommerce/API/api_categories/carts.dart';
-import 'package:ecommerce/model/enum/data_fix.dart';
 import 'package:ecommerce/ui/pages/detail/detail_provider.dart';
 import 'package:ecommerce/ui/pages/detail/quantity_selector.dart';
 import 'package:ecommerce/ui/pages/my_cart/my_cart.dart';
-import 'package:ecommerce/ui/pages/order_tracking/order_tracking.dart';
-import 'package:ecommerce/ui/pages/payment/payment.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:provider/provider.dart';
 
 class Detail extends StatefulWidget {
+  final int? id;
   final String? category;
   final String? title;
   final double? price;
   final String? image;
   final String? description;
 
-  Detail({this.category, this.title, this.price, this.image, this.description});
+  Detail(
+      {this.category,
+      this.title,
+      this.price,
+      this.image,
+      this.description,
+      this.id});
 
   @override
   State<Detail> createState() => _DetailState();
@@ -24,11 +28,24 @@ class Detail extends StatefulWidget {
 
 class _DetailState extends State<Detail> {
   int selectedQuantity = 1;
-  Carts? carts;
+  late DetailProvider provider;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    provider = Provider.of<DetailProvider>(context, listen: false);
+    provider.setCart(Carts(
+        date: DateTime.now(),
+        userId: 1,
+        products: [Product(productId: widget.id ?? 0, quantity: 1)]));
+  }
+
   @override
   Widget build(BuildContext context) {
+    double total= widget.price! * selectedQuantity;
     return Scaffold(
-        body: Container(
+        body: SizedBox(
       height: double.infinity,
       width: double.infinity,
       child: Column(
@@ -37,6 +54,7 @@ class _DetailState extends State<Detail> {
             height: 40,
           ),
           Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               const SizedBox(
                 width: 12,
@@ -50,6 +68,27 @@ class _DetailState extends State<Detail> {
                   color: Colors.black,
                   size: 24,
                 ),
+              ),
+              const Spacer(),
+              InkWell(
+                onTap: () {
+                  Navigator.push(context, MaterialPageRoute(
+                    builder: (context) {
+                      return MyCart(
+                        quantity: selectedQuantity,
+                        id: widget.id,
+                      );
+                    },
+                  ));
+                },
+                child: const Icon(
+                  Icons.shopping_cart,
+                  color: Colors.black,
+                  size: 24,
+                ),
+              ),
+              const SizedBox(
+                width: 14,
               )
             ],
           ),
@@ -74,7 +113,7 @@ class _DetailState extends State<Detail> {
                   ),
                 ],
                 color: Colors.white,
-                borderRadius: BorderRadius.only(
+                borderRadius: const BorderRadius.only(
                     topLeft: Radius.circular(24),
                     topRight: Radius.circular(24))),
             child: SingleChildScrollView(
@@ -132,7 +171,7 @@ class _DetailState extends State<Detail> {
                       print(rating);
                     },
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   const Text('Description',
@@ -168,20 +207,32 @@ class _DetailState extends State<Detail> {
                       Consumer<DetailProvider>(
                         builder: (context, cartsProvide, child) {
                           return ElevatedButton(
-                              onPressed: () async{
-                                try{
-                                  await cartsProvide.postCart(carts!);
-                                }catch(e){}
+                              onPressed: () async {
+                                await cartsProvide.postCart();
+                                if (selectedQuantity != 1) {
+                                  provider.updateQuantity(
+                                      widget.id ?? 0,
+                                      Carts(
+                                          id: 11,
+                                          userId: 1,
+                                          date: DateTime.now(),
+                                          products: [
+                                            Product(
+                                                productId: widget.id,
+                                                quantity: selectedQuantity)
+                                          ]));
+                                }
                               },
                               style: ButtonStyle(
                                 elevation: MaterialStateProperty.all(0),
                                 overlayColor:
-                                MaterialStateProperty.all(Colors.white38),
+                                    MaterialStateProperty.all(Colors.white38),
                                 backgroundColor:
-                                MaterialStateProperty.all(Colors.black87),
+                                    MaterialStateProperty.all(Colors.black87),
                               ),
                               child: const Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
                                   Icon(
                                     Icons.shopping_bag_outlined,

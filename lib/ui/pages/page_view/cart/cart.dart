@@ -2,6 +2,7 @@ import 'package:ecommerce/model/enum/load_status.dart';
 import 'package:ecommerce/ui/pages/page_view/cart/button.dart';
 import 'package:ecommerce/ui/pages/page_view/cart/carts_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:provider/provider.dart';
 
 class Cart extends StatefulWidget {
@@ -19,11 +20,10 @@ class _CartState extends State<Cart> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     provider = context.read<CartsProvider>();
+    provider.initAllProduct();
     provider.getCartAll();
-    provider.initProductSingle(productId ?? 0);
   }
 
   @override
@@ -80,87 +80,97 @@ class _CartState extends State<Cart> {
                   if (productDetail.loadStatus == LoadStatus.success) {
                     return SizedBox(
                       width: double.infinity,
-                      child: ListView.builder(
+                      child: ListView.separated(
+                        separatorBuilder: (context, index) {
+                          return Container(
+                            height: 12,
+                          );
+                        },
                         padding: EdgeInsets.zero,
-                        itemCount: (productDetail.cartsAll!.length > 0) ? 3 : 3,
+                        itemCount: productDetail.allProducts?.length ?? 0,
                         shrinkWrap: true,
                         scrollDirection: Axis.vertical,
                         physics: const NeverScrollableScrollPhysics(),
                         itemBuilder: (context, index) {
-                          final all = productDetail.cartsAll?[index];
-                          return Container(
-                            margin: const EdgeInsets.only(bottom: 20),
-                            padding: const EdgeInsets.all(16),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(12),
-                              border: Border.all(color: Colors.black, width: 1),
-                              color: Colors.white,
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.grey.withOpacity(0.5),
-                                  spreadRadius: 4,
-                                  blurRadius: 4,
-                                  offset: const Offset(
-                                      0, 1), // changes position of shadow
-                                ),
+                          final all = productDetail.allProducts?[index];
+                          return Slidable(
+                            endActionPane: ActionPane(
+                              motion: ScrollMotion(),
+                              extentRatio: 1,
+                              children: [
+                                SlidableAction(
+                                  onPressed: (context) {
+                                    provider.deleteProduct(all?.id ?? 0);
+                                  },
+                                  backgroundColor: Colors.black,
+                                  icon: Icons.delete,
+                                  foregroundColor: Colors.white,
+                                  borderRadius: BorderRadius.circular(16),
+                                )
                               ],
                             ),
-                            child: ListView.builder(
-                              physics: const NeverScrollableScrollPhysics(),
-                              itemCount: all?.products?.length,
-                              shrinkWrap: true,
-                              scrollDirection: Axis.vertical,
-                              itemBuilder: (context, index) {
-                                final pro = all?.products?[index];
-                                return Row(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    // ClipRRect(
-                                    //   borderRadius: BorderRadius.circular(8),
-                                    //   child: Image.network(
-                                    //      '', // Đường dẫn hình ảnh của sản phẩm
-                                    //     fit: BoxFit.cover,
-                                    //     width: 80,
-                                    //   ),
-                                    // ),
-                                    const SizedBox(
-                                      width: 12,
-                                    ),
-                                    Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          '${pro?.productId}',
+                            child: Container(
+                              height: 120,
+                              padding: const EdgeInsets.all(16),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(12),
+                                border:
+                                    Border.all(color: Colors.black, width: 1),
+                                color: Colors.white,
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.grey.withOpacity(0.5),
+                                    spreadRadius: 4,
+                                    blurRadius: 4,
+                                    offset: const Offset(
+                                        0, 1), // changes position of shadow
+                                  ),
+                                ],
+                              ),
+                              child: Row(
+                                children: [
+                                  ClipRRect(
+                                    borderRadius: BorderRadius.circular(20),
+                                    child: Image.network(all?.image ?? '',width: 80,
+                                        fit: BoxFit.cover),
+                                  ),
+                                  const SizedBox(
+                                    width: 16,
+                                  ),
+                                  Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      SizedBox(
+                                        width: 160,
+                                        child: Text(
+                                          all?.title ?? '',
+                                          overflow: TextOverflow.ellipsis,
+                                          maxLines: 1,
                                           style: const TextStyle(
+                                              fontSize: 12,
                                               color: Colors.black,
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 16),
+                                              fontWeight: FontWeight.bold),
                                         ),
-                                        const Text(
-                                          '',
-                                          style: TextStyle(
-                                              fontSize: 13, color: Colors.grey),
-                                        ),
-                                        Text(
-                                          'Quality: ${pro?.quantity ?? 0}',
-                                          style: const TextStyle(
-                                              fontSize: 13,
-                                              color: Colors.black),
-                                        ),
-                                      ],
-                                    ),
-                                    const Spacer(),
-                                    Text(
-                                      'Price: ${pro?.quantity ?? 0}', // Giá
-                                      style: const TextStyle(
-                                          color: Colors.black,
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                  ],
-                                );
-                              },
+                                      ),
+                                      Text(
+                                        all?.category ?? '',
+                                        style: const TextStyle(
+                                            fontSize: 12, color: Colors.grey),
+                                      ),
+                                      Text(
+                                          'Quantity: ${all?.id}')
+                                    ],
+                                  ),
+                                  Text(
+                                    '\$${(all?.price)?.toStringAsFixed(1)}',
+                                    style: const TextStyle(
+                                        fontSize: 12,
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.bold),
+                                  )
+                                ],
+                              ),
                             ),
                           );
                         },

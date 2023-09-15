@@ -19,11 +19,11 @@ class _RestClient implements RestClient {
   String? baseUrl;
 
   @override
-  Future<List<String>> getListCategory() async {
+  Future<List<String>?> getListCategory() async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    final Map<String, dynamic>? _data = null;
+    const Map<String, dynamic>? _data = null;
     final _result =
         await _dio.fetch<List<dynamic>>(_setStreamType<List<String>>(Options(
       method: 'GET',
@@ -41,12 +41,12 @@ class _RestClient implements RestClient {
               _dio.options.baseUrl,
               baseUrl,
             ))));
-    final value = _result.data!.cast<String>();
+    final value = _result.data?.cast<String>();
     return value;
   }
 
   @override
-  Future<List<Products>> getProductsByCategory(String name) async {
+  Future<List<Products>?> getProductsByCategory(String name) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
@@ -68,14 +68,14 @@ class _RestClient implements RestClient {
               _dio.options.baseUrl,
               baseUrl,
             ))));
-    var value = _result.data!
-        .map((dynamic i) => Products.fromJson(i as Map<String, dynamic>))
+    var value = _result.data
+        ?.map((dynamic i) => Products.fromJson(i as Map<String, dynamic>))
         .toList();
     return value;
   }
 
   @override
-  Future<List<Products>> getProducts({String limit = '5'}) async {
+  Future<List<Products>?> getProducts({String limit = '5'}) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'limit': limit};
     final _headers = <String, dynamic>{};
@@ -97,14 +97,14 @@ class _RestClient implements RestClient {
               _dio.options.baseUrl,
               baseUrl,
             ))));
-    var value = _result.data!
-        .map((dynamic i) => Products.fromJson(i as Map<String, dynamic>))
+    var value = _result.data
+        ?.map((dynamic i) => Products.fromJson(i as Map<String, dynamic>))
         .toList();
     return value;
   }
 
   @override
-  Future<User> getLogin(
+  Future<User?> getLogin(
     String username,
     String password,
   ) async {
@@ -116,7 +116,7 @@ class _RestClient implements RestClient {
       'password': password,
     };
     final _result =
-        await _dio.fetch<Map<String, dynamic>>(_setStreamType<User>(Options(
+        await _dio.fetch<Map<String, dynamic>?>(_setStreamType<User>(Options(
       method: 'POST',
       headers: _headers,
       extra: _extra,
@@ -132,19 +132,19 @@ class _RestClient implements RestClient {
               _dio.options.baseUrl,
               baseUrl,
             ))));
-    final value = User.fromJson(_result.data!);
+    final value = _result.data == null ? null : User.fromJson(_result.data!);
     return value;
   }
 
   @override
-  Future<Carts> getAllCart(Carts carts) async {
+  Future<Carts?> postCart(Carts carts) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     _data.addAll(carts.toJson());
     final _result =
-        await _dio.fetch<Map<String, dynamic>>(_setStreamType<Carts>(Options(
+        await _dio.fetch<Map<String, dynamic>?>(_setStreamType<Carts>(Options(
       method: 'POST',
       headers: _headers,
       extra: _extra,
@@ -160,12 +160,12 @@ class _RestClient implements RestClient {
               _dio.options.baseUrl,
               baseUrl,
             ))));
-    final value = Carts.fromJson(_result.data!);
+    final value = _result.data == null ? null : Carts.fromJson(_result.data!);
     return value;
   }
 
   @override
-  Future<List<CartsAll>> getCartsAll() async {
+  Future<List<CartsAll>?> getCartsAll() async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
@@ -187,20 +187,20 @@ class _RestClient implements RestClient {
               _dio.options.baseUrl,
               baseUrl,
             ))));
-    var value = _result.data!
-        .map((dynamic i) => CartsAll.fromJson(i as Map<String, dynamic>))
+    var value = _result.data
+        ?.map((dynamic i) => CartsAll.fromJson(i as Map<String, dynamic>))
         .toList();
     return value;
   }
 
   @override
-  Future<Products> getSingleProduct(int productId) async {
+  Future<Products?> getSingleProduct(int productId) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final Map<String, dynamic>? _data = null;
-    final _result =
-        await _dio.fetch<Map<String, dynamic>>(_setStreamType<Products>(Options(
+    final _result = await _dio
+        .fetch<Map<String, dynamic>?>(_setStreamType<Products>(Options(
       method: 'GET',
       headers: _headers,
       extra: _extra,
@@ -216,7 +216,68 @@ class _RestClient implements RestClient {
               _dio.options.baseUrl,
               baseUrl,
             ))));
-    final value = Products.fromJson(_result.data!);
+    final value =
+        _result.data == null ? null : Products.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<List<Products>?> getAllProducts() async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final Map<String, dynamic>? _data = null;
+    final _result =
+        await _dio.fetch<List<dynamic>>(_setStreamType<List<Products>>(Options(
+      method: 'GET',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              '/products',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
+    var value = _result.data
+        ?.map((dynamic i) => Products.fromJson(i as Map<String, dynamic>))
+        .toList();
+    return value;
+  }
+
+  @override
+  Future<Carts?> updateCart(
+    int id,
+    Carts carts,
+  ) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    _data.addAll(carts.toJson());
+    final _result =
+        await _dio.fetch<Map<String, dynamic>?>(_setStreamType<Carts>(Options(
+      method: 'PUT',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              '/carts/${id}',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
+    final value = _result.data == null ? null : Carts.fromJson(_result.data!);
     return value;
   }
 

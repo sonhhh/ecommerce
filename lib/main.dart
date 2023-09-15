@@ -1,9 +1,6 @@
 import 'package:ecommerce/API/api_util.dart';
-import 'package:ecommerce/model/enum/data_fix.dart';
 import 'package:ecommerce/ui/pages/auth/sign_in/provider_sign_in.dart';
 import 'package:ecommerce/ui/pages/detail/detail_provider.dart';
-import 'package:ecommerce/ui/pages/my_cart/my_cart.dart';
-import 'package:ecommerce/ui/pages/order_tracking/order_tracking.dart';
 import 'package:ecommerce/ui/pages/page_view/cart/carts_provider.dart';
 import 'package:ecommerce/ui/pages/page_view/categori_page/categories_provider.dart';
 import 'package:ecommerce/ui/pages/products/products_provider.dart';
@@ -43,12 +40,13 @@ class MyApp extends StatelessWidget {
             colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
             useMaterial3: true,
           ),
-          home: //MyCart()));
-          //BottomBar()
+          home: //Card()));
+    //OrderTracking()));
+          //BottomBar()));
           Splash(
             showOnboarding: showOnboarding,
           )),
-      );
+     );
 
 
   }
