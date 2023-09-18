@@ -1,6 +1,7 @@
 import 'package:ecommerce/API/api_util.dart';
 import 'package:ecommerce/ui/pages/auth/sign_in/provider_sign_in.dart';
 import 'package:ecommerce/ui/pages/detail/detail_provider.dart';
+import 'package:ecommerce/ui/pages/my_cart/my_carts_provider.dart';
 import 'package:ecommerce/ui/pages/page_view/cart/carts_provider.dart';
 import 'package:ecommerce/ui/pages/page_view/categori_page/categories_provider.dart';
 import 'package:ecommerce/ui/pages/products/products_provider.dart';
@@ -33,6 +34,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => ProviderSignIn(ApiUtil.apiClient)),
         ChangeNotifierProvider(create: (_) => DetailProvider(ApiUtil.apiClient)),
         ChangeNotifierProvider(create: (_)=> CartsProvider(ApiUtil.apiClient)),
+        ChangeNotifierProvider(create: (_)=> MyCartsProvider(ApiUtil.apiClient))
       ],
       child: MaterialApp(
           title: 'Flutter Demo',

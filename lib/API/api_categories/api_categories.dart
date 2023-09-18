@@ -39,4 +39,6 @@ abstract class RestClient {
   Future<Carts?> updateCart(
       @Path()  int id , @Body() Carts carts
   );
+  // @GET("/carts/1")
+  // Future<Carts?> getSingleCart();
 }

@@ -30,6 +30,7 @@ class _DetailState extends State<Detail> {
   int selectedQuantity = 1;
   late DetailProvider provider;
 
+
   @override
   void initState() {
     // TODO: implement initState
@@ -43,7 +44,6 @@ class _DetailState extends State<Detail> {
 
   @override
   Widget build(BuildContext context) {
-    double total= widget.price! * selectedQuantity;
     return Scaffold(
         body: SizedBox(
       height: double.infinity,
