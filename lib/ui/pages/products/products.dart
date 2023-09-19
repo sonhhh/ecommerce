@@ -56,7 +56,7 @@ class _ProductsScreenState extends State<ProductsScreen> {
               ],
             ),
             Text(widget.categoryName ?? "",
-                style: TextStyle(
+                style: const TextStyle(
                     fontWeight: FontWeight.bold,
                     color: Colors.black,
                     fontSize: 20)),
