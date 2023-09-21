@@ -3,23 +3,33 @@ import 'package:ecommerce/API/api_categories/products.dart';
 import 'package:ecommerce/model/enum/load_status.dart';
 import 'package:flutter/cupertino.dart';
 
-
-class MyCartsProvider extends ChangeNotifier{
+class MyCartsProvider extends ChangeNotifier {
   final RestClient restClient;
   Products? product;
+  List<Products>? products;
   Map<int, int> cartsMap = {};
   LoadStatus loadStatus = LoadStatus.loading;
+
   MyCartsProvider(this.restClient);
-  void addToCart(int productId, int quantity) async {
+  void addToCart(int productId, int newQuantity) async {
     try {
       await singleProduct(productId);
-      List<int> allValues = cartsMap.values.toList();
-      print(allValues);
       if (cartsMap.containsKey(productId)) {
-        cartsMap[productId] = (cartsMap[productId] ?? 0) + quantity;
+        if (newQuantity > cartsMap[productId]!) {
+          // Nếu newQuantity lớn hơn số lượng hiện tại trong giỏ hàng,
+          // thì cộng vào
+          cartsMap[productId] = cartsMap[productId]! + newQuantity;
+          print(cartsMap[productId]);
+        } else if (newQuantity < cartsMap[productId]!) {
+          // Nếu newQuantity nhỏ hơn số lượng hiện tại trong giỏ hàng,
+          // thì trừ đi
+          cartsMap[productId] = cartsMap[productId]! - newQuantity;
+          print(cartsMap[productId]);
+        }
       } else {
-        cartsMap[productId] = quantity;
+        cartsMap[productId] = newQuantity;
       }
+      loadStatus = LoadStatus.success;
       notifyListeners();
     } catch (e) {
       print(e);
@@ -29,7 +39,6 @@ class MyCartsProvider extends ChangeNotifier{
     try {
       final data = await restClient.getSingleProduct(productId);
       product = data;
-      loadStatus = LoadStatus.success;
     } catch (e) {
       print(e);
     }

@@ -33,7 +33,6 @@ class _DetailState extends State<Detail> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     provider = Provider.of<DetailProvider>(context, listen: false);
     provider.setCart(Carts(

@@ -1,6 +1,5 @@
 import 'package:ecommerce/API/api_categories/api_categories.dart';
 import 'package:ecommerce/API/api_categories/carts.dart';
-import 'package:ecommerce/API/api_categories/products.dart';
 import 'package:flutter/cupertino.dart';
 
 class DetailProvider extends ChangeNotifier {

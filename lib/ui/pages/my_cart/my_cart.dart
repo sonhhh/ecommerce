@@ -1,3 +1,4 @@
+import 'package:ecommerce/API/api_categories/products.dart';
 import 'package:ecommerce/model/enum/load_status.dart';
 import 'package:ecommerce/ui/pages/detail/quantity_selector.dart';
 import 'package:ecommerce/ui/pages/my_cart/my_carts_provider.dart';
@@ -17,13 +18,14 @@ class MyCart extends StatefulWidget {
 
 class _MyCartState extends State<MyCart> {
   late MyCartsProvider provider;
-
+  int quantity = 1;
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+    quantity = widget.quantity ?? 1;
     provider = Provider.of<MyCartsProvider>(context, listen: false);
-    provider.addToCart(widget.id ?? 0, widget.quantity ?? 0);
+    provider.addToCart(widget.id ?? 0,quantity );
   }
 
   @override
@@ -71,27 +73,25 @@ class _MyCartState extends State<MyCart> {
             if (detail.loadStatus == LoadStatus.success) {
               return ListView.separated(
                 shrinkWrap: true,
+                scrollDirection: Axis.vertical,
                 physics: const ClampingScrollPhysics(),
                 itemCount: detail.cartsMap.length,
-                separatorBuilder: (BuildContext context, int index) => const Divider(),
+                separatorBuilder: (BuildContext context, int index) =>
+                    const Divider(),
                 itemBuilder: (BuildContext context, int index) {
                   final productId = detail.cartsMap.keys.elementAt(index);
-                  final quantity = detail.cartsMap[productId];
-                  final product = detail.product; // Lấy thông tin của product từ provider
-               //   final productInfo = product != null ? detail.cartsMap[product.id] : null;
-
+                  var quantity = detail.cartsMap[productId];
+                  final product = detail.product;
+                  quantity = quantity ?? 0;
                   return Container(
                     height: 120,
                     padding: const EdgeInsets.all(8),
-                    decoration: const BoxDecoration(
-                      //border: Border(bottom: BorderSide(width: 1, color: Colors.grey)),
-                    ),
                     child: Row(
                       children: [
                         ClipRRect(
                           borderRadius: BorderRadius.circular(15),
                           child: Image.network(product?.image ?? '',
-                              fit: BoxFit.cover,width: 120),
+                              fit: BoxFit.cover, width: 120),
                         ),
                         const SizedBox(
                           width: 8,
@@ -113,7 +113,8 @@ class _MyCartState extends State<MyCart> {
                             ),
                             Text(
                               product?.category ?? '',
-                              style: const TextStyle(fontSize: 13, color: Colors.grey),
+                              style: const TextStyle(
+                                  fontSize: 13, color: Colors.grey),
                             ),
                             const SizedBox(
                               height: 32,
@@ -130,7 +131,10 @@ class _MyCartState extends State<MyCart> {
                         QuantitySelector(
                           initialValue: quantity ?? 0,
                           onChanged: (newQuantity) {
-                            detail.addToCart(productId, newQuantity);
+                            setState(() {
+                              quantity = newQuantity;
+                              detail.addToCart(productId, newQuantity);
+                            });
                           },
                         ),
                       ],
@@ -138,79 +142,6 @@ class _MyCartState extends State<MyCart> {
                   );
                 },
               );
-              // return ListView.separated(
-              //   scrollDirection: Axis.vertical,
-              //   shrinkWrap: true,
-              //   itemCount: detail.cartsMap.length,
-              //     itemBuilder: (context, index) {
-              //       return Container(
-              //         height: 120,
-              //         padding: const EdgeInsets.all(8),
-              //         decoration: const BoxDecoration(
-              //           border: Border(
-              //               bottom: BorderSide(width: 1, color: Colors.grey)),
-              //         ),
-              //         child: Row(
-              //           children: [
-              //             ClipRRect(
-              //               borderRadius: BorderRadius.circular(15),
-              //               child: Image.network(data?.image ?? '',
-              //                   fit: BoxFit.cover, width: 120),
-              //             ),
-              //             const SizedBox(
-              //               width: 8,
-              //             ),
-              //             Column(
-              //               crossAxisAlignment: CrossAxisAlignment.start,
-              //               children: [
-              //                 SizedBox(
-              //                   width: 100,
-              //                   child: Text(
-              //                     data?.title ?? '',
-              //                     maxLines: 1,
-              //                     overflow: TextOverflow.ellipsis,
-              //                     style: const TextStyle(
-              //                         color: Colors.black,
-              //                         fontSize: 13,
-              //                         fontWeight: FontWeight.bold),
-              //                   ),
-              //                 ),
-              //                 Text(
-              //                   data?.category ?? '',
-              //                   style: const TextStyle(
-              //                       fontSize: 13, color: Colors.grey),
-              //                 ),
-              //                 const SizedBox(
-              //                   height: 32,
-              //                 ),
-              //                 Text(
-              //                   "\$${data!.price! * widget.quantity!}",
-              //                   style: const TextStyle(
-              //                       color: Colors.black,
-              //                       fontSize: 13,
-              //                       fontWeight: FontWeight.bold),
-              //                 )
-              //               ],
-              //             ),
-              //             QuantitySelector(
-              //               initialValue: widget.quantity ?? 0,
-              //               onChanged: (quantity) {
-              //                 setState(() {
-              //                   widget.quantity = quantity;
-              //                 });
-              //               },
-              //             ),
-              //           ],
-              //         ),
-              //       );
-              //     },
-              //     separatorBuilder: (context, index) {
-              //       return const Divider(
-              //         color: Colors.grey,
-              //         height: 1,
-              //       );
-              //     },
-              //     );
             } else {
               return const SizedBox(
                 width: 50,

@@ -158,6 +158,9 @@ class _CartState extends State<Cart> {
                                         style: const TextStyle(
                                             fontSize: 12, color: Colors.grey),
                                       ),
+                                      const SizedBox(
+                                        height: 20,
+                                      ),
                                       Text(
                                           'Quantity: ${all?.id}')
                                     ],
