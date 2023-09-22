@@ -1,12 +1,15 @@
 import 'package:ecommerce/API/api_categories/api_categories.dart';
 import 'package:ecommerce/API/api_categories/carts.dart';
+import 'package:ecommerce/API/api_categories/products.dart';
+import 'package:ecommerce/model/enum/load_status.dart';
 import 'package:flutter/cupertino.dart';
 
 class DetailProvider extends ChangeNotifier {
   final RestClient restClient;
   Carts? carts;
-
-
+  Products? product;
+  Map<int, int> cartsMap = {};
+  LoadStatus loadStatus = LoadStatus.loading;
   DetailProvider(this.restClient);
 
   void setCart(Carts data) {
@@ -20,7 +23,6 @@ class DetailProvider extends ChangeNotifier {
         if (response != null) {
           int id = carts?.products?[0].productId ?? 0;
           print(id);
-       //   await SingleProduct(id);
           print('success');
         } else {
           print("faile");
@@ -45,5 +47,29 @@ class DetailProvider extends ChangeNotifier {
       print('Đã có lỗi xảy ra: $e');
     }
   }
+  void addToCart(int productId, int newQuantity) async {
+    try {
+      await singleProduct(productId);
+      if (cartsMap.containsKey(productId)) {
+        cartsMap[productId] = (cartsMap[productId] ?? 0) + newQuantity;
+        print(cartsMap[productId]);
+      } else {
+        cartsMap[productId] = newQuantity;
+      }
+      loadStatus = LoadStatus.success;
+      notifyListeners();
+    } catch (e) {
+      print(e);
+    }
+  }
 
+  Future<Products?> singleProduct(int productId) async {
+    try {
+      final data = await restClient.getSingleProduct(productId);
+      product = data;
+    } catch (e) {
+      print(e);
+    }
+    notifyListeners();
+  }
 }

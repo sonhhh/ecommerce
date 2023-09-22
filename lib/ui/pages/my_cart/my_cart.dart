@@ -1,5 +1,6 @@
 import 'package:ecommerce/API/api_categories/products.dart';
 import 'package:ecommerce/model/enum/load_status.dart';
+import 'package:ecommerce/ui/pages/detail/detail_provider.dart';
 import 'package:ecommerce/ui/pages/detail/quantity_selector.dart';
 import 'package:ecommerce/ui/pages/my_cart/my_carts_provider.dart';
 import 'package:ecommerce/ui/pages/payment/payment.dart';
@@ -17,15 +18,14 @@ class MyCart extends StatefulWidget {
 }
 
 class _MyCartState extends State<MyCart> {
-  late MyCartsProvider provider;
+  late DetailProvider provider;
   int quantity = 1;
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    quantity = widget.quantity ?? 1;
-    provider = Provider.of<MyCartsProvider>(context, listen: false);
-    provider.addToCart(widget.id ?? 0,quantity );
+    provider = Provider.of<DetailProvider>(context, listen: false);
   }
 
   @override
@@ -69,7 +69,7 @@ class _MyCartState extends State<MyCart> {
                   fontSize: 20,
                   color: Colors.black,
                   fontWeight: FontWeight.bold)),
-          Consumer<MyCartsProvider>(builder: (context, detail, child) {
+          Consumer<DetailProvider>(builder: (context, detail, child) {
             if (detail.loadStatus == LoadStatus.success) {
               return ListView.separated(
                 shrinkWrap: true,
@@ -128,13 +128,22 @@ class _MyCartState extends State<MyCart> {
                             )
                           ],
                         ),
-                        QuantitySelector(
-                          initialValue: quantity ?? 0,
-                          onChanged: (newQuantity) {
-                            setState(() {
-                              quantity = newQuantity;
-                              detail.addToCart(productId, newQuantity);
-                            });
+                        Consumer2<DetailProvider, MyCartsProvider>(
+                          builder: (context, detail1, myCart, child) {
+                            return QuantitySelector(
+                              initialValue: quantity ?? 0,
+                              onChanged: (newQuantity) {
+                                setState(() {
+                                  quantity = newQuantity;
+                                  if (newQuantity == 0) {
+                                    myCart.removeFromCart(productId, 1);
+                                  } else {
+                                    // detail1.addToCart(productId,
+                                    //     newQuantity); // Update quantity
+                                  }
+                                });
+                              },
+                            );
                           },
                         ),
                       ],

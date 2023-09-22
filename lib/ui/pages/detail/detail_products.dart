@@ -73,10 +73,7 @@ class _DetailState extends State<Detail> {
                 onTap: () {
                   Navigator.push(context, MaterialPageRoute(
                     builder: (context) {
-                      return MyCart(
-                        quantity: selectedQuantity,
-                        id: widget.id,
-                      );
+                      return MyCart();
                     },
                   ));
                 },
@@ -221,6 +218,7 @@ class _DetailState extends State<Detail> {
                                                 quantity: selectedQuantity)
                                           ]));
                                 }
+                                cartsProvide.addToCart(widget.id ?? 0, selectedQuantity);
                               },
                               style: ButtonStyle(
                                 elevation: MaterialStateProperty.all(0),
