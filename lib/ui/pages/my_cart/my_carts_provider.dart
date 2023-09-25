@@ -14,7 +14,12 @@ class MyCartsProvider extends ChangeNotifier {
     if (cartsMap.containsKey(productId)) {
       cartsMap[productId] = cartsMap[productId]! - quantity;
       if (cartsMap[productId]! <= 0) {
-        cartsMap.remove(productId);
+        if (cartsMap[productId]! < 0) {
+          cartsMap[productId] = 0;
+          cartsMap.remove(productId);
+        } else {
+
+        }
       }
     }
     notifyListeners();

@@ -1,17 +1,17 @@
+
 import 'package:ecommerce/API/api_categories/api_categories.dart';
 import 'package:ecommerce/API/api_categories/carts.dart';
 import 'package:ecommerce/API/api_categories/products.dart';
 import 'package:ecommerce/model/enum/load_status.dart';
 import 'package:flutter/cupertino.dart';
-
 class DetailProvider extends ChangeNotifier {
   final RestClient restClient;
   Carts? carts;
   Products? product;
   Map<int, int> cartsMap = {};
+  int? quantityUpdate;
   LoadStatus loadStatus = LoadStatus.loading;
   DetailProvider(this.restClient);
-
   void setCart(Carts data) {
     carts = data;
   }
@@ -40,9 +40,11 @@ class DetailProvider extends ChangeNotifier {
       final updateQuantity = await restClient.updateCart(id, carts);
       if (updateQuantity != null) {
         print('Cập nhật thành công');
+        quantityUpdate = carts.products?[0].quantity;
       } else {
         print('Cập nhật thất bại');
       }
+      notifyListeners();
     } catch (e) {
       print('Đã có lỗi xảy ra: $e');
     }
@@ -52,7 +54,6 @@ class DetailProvider extends ChangeNotifier {
       await singleProduct(productId);
       if (cartsMap.containsKey(productId)) {
         cartsMap[productId] = (cartsMap[productId] ?? 0) + newQuantity;
-        print(cartsMap[productId]);
       } else {
         cartsMap[productId] = newQuantity;
       }

@@ -1,4 +1,4 @@
-import 'package:ecommerce/API/api_categories/products.dart';
+import 'package:ecommerce/API/api_categories/carts.dart';
 import 'package:ecommerce/model/enum/load_status.dart';
 import 'package:ecommerce/ui/pages/detail/detail_provider.dart';
 import 'package:ecommerce/ui/pages/detail/quantity_selector.dart';
@@ -19,7 +19,7 @@ class MyCart extends StatefulWidget {
 
 class _MyCartState extends State<MyCart> {
   late DetailProvider provider;
-  int quantity = 1;
+  int? quantity;
 
   @override
   void initState() {
@@ -82,7 +82,7 @@ class _MyCartState extends State<MyCart> {
                   final productId = detail.cartsMap.keys.elementAt(index);
                   var quantity = detail.cartsMap[productId];
                   final product = detail.product;
-                  quantity = quantity ?? 0;
+                  int quantityUpdate = detail.quantityUpdate ?? quantity ?? 0;
                   return Container(
                     height: 120,
                     padding: const EdgeInsets.all(8),
@@ -120,11 +120,12 @@ class _MyCartState extends State<MyCart> {
                               height: 32,
                             ),
                             Text(
-                              "\$${(product?.price ?? 0) * (quantity ?? 0)}",
+                              "\$${(product?.price ?? 0) * (quantityUpdate ?? 0)}",
                               style: const TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 13,
-                                  fontWeight: FontWeight.bold),
+                                color: Colors.black,
+                                fontSize: 13,
+                                fontWeight: FontWeight.bold,
+                              ),
                             )
                           ],
                         ),
@@ -135,12 +136,24 @@ class _MyCartState extends State<MyCart> {
                               onChanged: (newQuantity) {
                                 setState(() {
                                   quantity = newQuantity;
+                                  detail1.updateQuantity(
+                                      widget.id ?? 0,
+                                      Carts(
+                                          id: 11,
+                                          userId: 1,
+                                          date: DateTime.now(),
+                                          products: [
+                                            Product(
+                                                productId: productId,
+                                                quantity: newQuantity)
+                                          ]));
                                   if (newQuantity == 0) {
                                     myCart.removeFromCart(productId, 1);
-                                  } else {
-                                    // detail1.addToCart(productId,
-                                    //     newQuantity); // Update quantity
                                   }
+                                  // else {
+                                  //   detail1.addToCart(productId,
+                                  //       newQuantity);
+                                  // }
                                 });
                               },
                             );
