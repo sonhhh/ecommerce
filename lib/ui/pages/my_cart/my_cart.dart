@@ -20,6 +20,8 @@ class MyCart extends StatefulWidget {
 class _MyCartState extends State<MyCart> {
   late DetailProvider provider;
   int? quantity;
+  double totalPrice = 0;
+
 
   @override
   void initState() {
@@ -27,7 +29,15 @@ class _MyCartState extends State<MyCart> {
     super.initState();
     provider = Provider.of<DetailProvider>(context, listen: false);
   }
-
+  List<double> productPrices = [];
+// Hàm tính tổng
+  double calculateTotalPrice(List<double> prices) {
+    double totalPrice = 0;
+    for (double price in prices) {
+      totalPrice += price;
+    }
+    return totalPrice;
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -80,9 +90,10 @@ class _MyCartState extends State<MyCart> {
                     const Divider(),
                 itemBuilder: (BuildContext context, int index) {
                   final productId = detail.cartsMap.keys.elementAt(index);
-                  var quantity = detail.cartsMap[productId];
-                  final product = detail.product;
-                  int quantityUpdate = detail.quantityUpdate ?? quantity ?? 0;
+                   var quantity = detail.cartsMap[productId];
+                   final product = detail.product;
+                   int quantityUpdate = detail.quantityUpdate ?? quantity ?? 0;
+                   final int updatedQuantity = quantityUpdate ?? 0;
                   return Container(
                     height: 120,
                     padding: const EdgeInsets.all(8),
@@ -120,7 +131,7 @@ class _MyCartState extends State<MyCart> {
                               height: 32,
                             ),
                             Text(
-                              "\$${(product?.price ?? 0) * (quantityUpdate ?? 0)}",
+                              "\$${detail.product?.price}",
                               style: const TextStyle(
                                 color: Colors.black,
                                 fontSize: 13,
@@ -150,10 +161,6 @@ class _MyCartState extends State<MyCart> {
                                   if (newQuantity == 0) {
                                     myCart.removeFromCart(productId, 1);
                                   }
-                                  // else {
-                                  //   detail1.addToCart(productId,
-                                  //       newQuantity);
-                                  // }
                                 });
                               },
                             );
@@ -177,85 +184,94 @@ class _MyCartState extends State<MyCart> {
           const SizedBox(
             height: 50,
           ),
-          Container(
-            padding: const EdgeInsets.all(12),
-            height: 160,
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(20),
-                border: Border.all(color: Colors.grey, width: 1)),
-            child: const Column(
-              children: [
-                SizedBox(
-                  height: 12,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      'Subtotal:',
-                      style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 14,
-                          fontWeight: FontWeight.bold),
-                    ),
-                    Text(
-                      "\$",
-                      style: TextStyle(
-                          fontSize: 20,
-                          color: Colors.black,
-                          fontWeight: FontWeight.bold),
-                    )
-                  ],
-                ),
-                Divider(
-                  color: Colors.grey,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      'Shipping:',
-                      style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 14,
-                          fontWeight: FontWeight.bold),
-                    ),
-                    Text(
-                      '\$17',
-                      style: TextStyle(
-                          fontSize: 20,
-                          color: Colors.black,
-                          fontWeight: FontWeight.bold),
-                    )
-                  ],
-                ),
-                Divider(
-                  color: Colors.grey,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      'BagTotal:',
-                      style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 14,
-                          fontWeight: FontWeight.bold),
-                    ),
-                    Text(
-                      '',
-                      style: TextStyle(
-                        fontSize: 20,
-                        color: Colors.black,
-                        fontWeight: FontWeight.bold,
+          Consumer2<DetailProvider, MyCartsProvider>(
+            builder: (context, detail1, myCart, child) {final product = detail1.product;
+            final quantity = detail1.quantityUpdate;
+            final int cartsMapQuantity = detail1.cartsMap[product?.id] ?? 0;
+            final int updatedQuantity = quantity ?? 0;
+            double price = (product?.price ?? 0) * (updatedQuantity >= cartsMapQuantity ? updatedQuantity : cartsMapQuantity);
+
+            return Container(
+              padding: const EdgeInsets.all(12),
+              height: 160,
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(20),
+                  border: Border.all(color: Colors.grey, width: 1)),
+              child:  Column(
+                children: [
+                  const SizedBox(
+                    height: 12,
+                  ),
+                   Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                       Text(
+                        'Subtotal:',
+                        style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 14,
+                            fontWeight: FontWeight.bold),
                       ),
-                    )
-                  ],
-                )
-              ],
-            ),
-          ),
-          const SizedBox(
+                      Text(
+                        '\$${price}',
+                        style: const TextStyle(
+                            fontSize: 20,
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold),
+                      )
+                    ],
+                  ),
+                  const Divider(
+                    color: Colors.grey,
+                  ),
+                  const Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        'Shipping:',
+                        style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 14,
+                            fontWeight: FontWeight.bold),
+                      ),
+                      Text(
+                        '\$17',
+                        style: TextStyle(
+                            fontSize: 20,
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold),
+                      )
+                    ],
+                  ),
+                  const Divider(
+                    color: Colors.grey,
+                  ),
+                   Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const Text(
+                        'BagTotal:',
+                        style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 14,
+                            fontWeight: FontWeight.bold),
+                      ),
+                      Text(
+                        '\$${price + 17}',
+                        style: const TextStyle(
+                          fontSize: 20,
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      )
+                    ],
+                  )
+                ],
+              ),
+            );
+          },),
+
+           const SizedBox(
             height: 80,
           ),
           GestureDetector(

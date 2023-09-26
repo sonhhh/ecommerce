@@ -18,7 +18,6 @@ class MyCartsProvider extends ChangeNotifier {
           cartsMap[productId] = 0;
           cartsMap.remove(productId);
         } else {
-
         }
       }
     }
