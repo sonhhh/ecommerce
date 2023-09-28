@@ -8,6 +8,7 @@ import 'package:ecommerce/ui/pages/products/products.dart';
 import 'package:ecommerce/ui/pages/products/products_provider.dart';
 import 'package:ecommerce/ui/pages/widget/text_field/text_field_search.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 
 class HomePageScreen extends StatefulWidget {
@@ -37,6 +38,11 @@ class _HomePageScreenState extends State<HomePageScreen> {
 
   @override
   Widget build(BuildContext context) {
+    // Sử dụng ScreenUtil để thích nghi với kích thước màn hình
+    ScreenUtil.init(
+      context,
+      designSize: const Size(375, 812), // Kích thước màn hình gốc
+    );
     return Scaffold(
         appBar: AppBar(
           title: Row(
@@ -49,9 +55,9 @@ class _HomePageScreenState extends State<HomePageScreen> {
                       },
                     ));
                   },
-                  icon: const Icon(
+                  icon: Icon(
                     Icons.list_alt_rounded,
-                    size: 25,
+                    size: 25.sp,
                     color: Colors.black,
                   )),
               const Spacer(),
@@ -63,10 +69,10 @@ class _HomePageScreenState extends State<HomePageScreen> {
                       },
                     ));
                   },
-                  icon: const Icon(
+                  icon: Icon(
                     Icons.account_circle,
                     color: Colors.black,
-                    size: 25,
+                    size: 25.sp,
                   )),
             ],
           ),
@@ -79,14 +85,14 @@ class _HomePageScreenState extends State<HomePageScreen> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text('Welcome',
+                   Text('Welcome',
                       style: TextStyle(
                           fontWeight: FontWeight.bold,
                           color: Colors.black,
-                          fontSize: 25)),
-                  const Text(
+                          fontSize: 25.sp)),
+                   Text(
                     'Our Fashions App',
-                    style: TextStyle(fontSize: 17, color: Colors.grey),
+                    style: TextStyle(fontSize: 17.sp, color: Colors.grey),
                   ),
                   const SizedBox(
                     height: 10,
@@ -101,9 +107,9 @@ class _HomePageScreenState extends State<HomePageScreen> {
                       ),
                       IconButton(
                           onPressed: () {},
-                          icon: const Icon(
+                          icon:  Icon(
                             Icons.filter_list,
-                            size: 20,
+                            size: 20.sp,
                             color: Colors.black,
                           ))
                     ],
@@ -112,7 +118,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                   Container(
                     padding: const EdgeInsets.symmetric(horizontal: 15),
                     //height: 80,
-                    width: 330,
+                    width: 330.sp,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(15),
                       color: Colors.white,
@@ -133,28 +139,28 @@ class _HomePageScreenState extends State<HomePageScreen> {
                           borderRadius: BorderRadius.circular(15),
                           child: Image.asset(
                             'assets/introl/introl_1.jpeg',
-                            height: 60,
+                            height: 60.h,
                             fit: BoxFit.cover,
                           ),
                         ),
                         const SizedBox(width: 10),
-                        const Column(
+                         Column(
                           // mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            SizedBox(height: 10),
+                            const SizedBox(height: 10),
                             Text(
                               'Travis Scott',
                               style: TextStyle(
-                                  fontSize: 20,
+                                  fontSize: 20.sp,
                                   fontWeight: FontWeight.bold,
                                   color: Colors.black),
                             ),
-                            Text(
+                            const Text(
                               'Rapper',
                               style: TextStyle(
                                   color: Colors.black26, fontSize: 15),
                             ),
-                            Text(
+                            const Text(
                               "100000000000",
                               style:
                                   TextStyle(fontSize: 10, color: Colors.black),
@@ -166,10 +172,10 @@ class _HomePageScreenState extends State<HomePageScreen> {
                         ),
                         IconButton(
                             onPressed: () {},
-                            icon: const Icon(
+                            icon: Icon(
                               Icons.arrow_circle_right,
                               color: Colors.black,
-                              size: 35,
+                              size: 35.sp,
                             ))
                       ],
                     ),
@@ -185,7 +191,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                         fontWeight: FontWeight.bold),
                   ),
                   SizedBox(
-                    height: 40,
+                    height: 42.h,
                     child: Consumer<CategoriesProvider>(
                       builder: (context, categorise, child) {
                         if (categorise.loadStatus == LoadStatus.success) {
@@ -200,10 +206,10 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                 children: [
                                   GestureDetector(
                                     onTap: () {
-                                      categorise.setIndex(index);
+                                      categorise.updateSelectedCategoryIndex(index);
                                     },
                                     child: Container(
-                                      width: 150,
+                                      width: 150.w,
                                       margin: const EdgeInsets.all(2),
                                       decoration: BoxDecoration(
                                           color: isSelected
@@ -221,7 +227,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                                 ? Colors.white
                                                 : Colors.black,
                                             fontWeight: FontWeight.w800,
-                                            fontSize: 15,
+                                            fontSize: 15.sp,
                                           ),
                                         ),
                                       ),
@@ -243,7 +249,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                     ),
                   ),
                   SizedBox(
-                    height: 40,
+                    height: 40.h,
                     child: Consumer<CategoriesProvider>(
                         builder: (context, categori, child) {
                       if (categori.loadStatus == LoadStatus.success) {
@@ -252,9 +258,9 @@ class _HomePageScreenState extends State<HomePageScreen> {
                           children: [
                             Text(
                               'Top ${categori.selectedCategoryName ?? ''}',
-                              style: const TextStyle(
+                              style: TextStyle(
                                   color: Colors.black,
-                                  fontSize: 16,
+                                  fontSize: 16.sp,
                                   fontWeight: FontWeight.bold),
                             ),
                             GestureDetector(
@@ -288,7 +294,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                     }),
                   ),
                   SizedBox(
-                    height: 500,
+                    height: 500.h,
                     child: Consumer<CategoriesProvider>(
                       builder: (context, product, child) {
                         if (product.loadStatus == LoadStatus.success) {
@@ -296,7 +302,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                               gridDelegate:
                                   const SliverGridDelegateWithFixedCrossAxisCount(
                                 crossAxisCount: 2,
-                                mainAxisExtent: 250,
+                                mainAxisExtent: 210,
                                 mainAxisSpacing: 10,
                                 crossAxisSpacing: 10,
                               ),
@@ -335,12 +341,12 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                                 child: Image.network(
                                                   pro?.image ?? '',
                                                   fit: BoxFit.cover,
-                                                  height: 170,
-                                                  width: 180,
+                                                  height: 170.h,
+                                                  width: 180.w,
                                                 ),
                                               ),
                                             ),
-                                            const Positioned(
+                                             Positioned(
                                                 height: 28,
                                                 right: 12,
                                                 top: 12,
@@ -350,7 +356,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                                       Icons
                                                           .favorite_outline_rounded,
                                                       color: Colors.white,
-                                                      size: 16),
+                                                      size: 16.sp),
                                                 ))
                                           ],
                                         ),
@@ -358,15 +364,15 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                           pro?.title ?? '',
                                           overflow: TextOverflow.ellipsis,
                                           maxLines: 1,
-                                          style: const TextStyle(
+                                          style: TextStyle(
                                               color: Colors.black,
                                               fontWeight: FontWeight.bold,
-                                              fontSize: 12),
+                                              fontSize: 12.sp),
                                         ),
                                         Text(
                                           '\$${pro?.price}',
-                                          style: const TextStyle(
-                                              fontSize: 16,
+                                          style: TextStyle(
+                                              fontSize: 16.sp,
                                               color: Colors.black,
                                               fontWeight: FontWeight.bold),
                                         )
@@ -388,7 +394,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                     ),
                   ),
                   SizedBox(
-                    height: 180,
+                    height: 180.h,
                     child: ListView.builder(
                       itemCount: categories.length,
                       shrinkWrap: true,
@@ -423,7 +429,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                 top: 60,
                                 left: 20,
                                 child: Text(
-                                  'On everthinh today',
+                                  'On everthing today',
                                   style: TextStyle(
                                       fontSize: 15,
                                       color: Colors.black,
@@ -500,7 +506,6 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                                     mainAxisSpacing: 10,
                                                     crossAxisSpacing: 10,
                                                   ),
-                                                  // scrollDirection: Axis.vertical,
                                                   physics:
                                                       const NeverScrollableScrollPhysics(),
                                                   shrinkWrap: true,
@@ -530,8 +535,8 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                                                       '',
                                                                   fit: BoxFit
                                                                       .cover,
-                                                                  height: 170,
-                                                                  width: 180,
+                                                                  height: 170.h,
+                                                                  width: 180.w,
                                                                 ),
                                                               )),
                                                             ],
@@ -554,11 +559,11 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                                           ),
                                                           Text(
                                                             '\$${arr?.price}',
-                                                            style: const TextStyle(
+                                                            style: TextStyle(
                                                                 fontWeight:
                                                                     FontWeight
                                                                         .bold,
-                                                                fontSize: 13,
+                                                                fontSize: 13.sp,
                                                                 color: Colors
                                                                     .black),
                                                           )
@@ -581,7 +586,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                               height: 20,
                             ),
                             SizedBox(
-                              height: 210,
+                              height: 210.h,
                               child: GridView.builder(
                                 gridDelegate:
                                     const SliverGridDelegateWithFixedCrossAxisCount(
@@ -717,8 +722,8 @@ class _HomePageScreenState extends State<HomePageScreen> {
                               child: Image.network(
                                 detail[index].image ?? '',
                                 fit: BoxFit.cover,
-                                height: 100,
-                                width: 120,
+                                height: 100.h,
+                                width: 120.w,
                               ),
                             ),
                             Column(
@@ -726,16 +731,16 @@ class _HomePageScreenState extends State<HomePageScreen> {
                               children: [
                                 Text(
                                   detail[index].name ?? '',
-                                  style: const TextStyle(
+                                  style: TextStyle(
                                       color: Colors.black,
-                                      fontSize: 15,
+                                      fontSize: 15.sp,
                                       fontWeight: FontWeight.bold),
                                 ),
                                 Text(
                                   detail[index].categories ?? '',
-                                  style: const TextStyle(
+                                  style: TextStyle(
                                     color: Colors.black,
-                                    fontSize: 12,
+                                    fontSize: 12.sp,
                                   ),
                                 ),
                                 const Text(
@@ -747,9 +752,9 @@ class _HomePageScreenState extends State<HomePageScreen> {
                             ),
                             Text(
                               detail[index].price ?? '',
-                              style: const TextStyle(
+                              style: TextStyle(
                                   color: Colors.black,
-                                  fontSize: 12,
+                                  fontSize: 12.sp,
                                   fontWeight: FontWeight.bold),
                             ),
                           ],

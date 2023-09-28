@@ -22,7 +22,7 @@ class _QuantitySelectorState extends State<QuantitySelector> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 28,
+      height: 26,
       margin: EdgeInsets.zero,
       padding: EdgeInsets.zero,
       decoration: BoxDecoration(
@@ -32,26 +32,34 @@ class _QuantitySelectorState extends State<QuantitySelector> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          IconButton(
-            icon: const Icon(Icons.remove,size: 14,color: Colors.black),
-            onPressed: () {
-              setState(() {
-                if (_quantity > 0) {
-                  _quantity--;
-                  widget.onChanged(_quantity);
-                }
-              });
-            },
+          Expanded(
+            child: IconButton(
+              icon: const Icon(Icons.remove, size: 14, color: Colors.black),
+              onPressed: () {
+                setState(() {
+                  if (_quantity > 0) {
+                    _quantity--;
+                    widget.onChanged(_quantity);
+                  }
+                });
+              },
+            ),
           ),
-          Text('$_quantity', style: const TextStyle(fontSize: 14, color: Colors.black)),
-          IconButton(
-            icon: const Icon(Icons.add,size: 16,color: Colors.black),
-            onPressed: () {
-              setState(() {
-                _quantity++;
-                widget.onChanged(_quantity);
-              });
-            },
+          Expanded(
+              child: Center(
+                child: Text('$_quantity',
+                    style: const TextStyle(fontSize: 12, color: Colors.black)),
+              )),
+          Expanded(
+            child: IconButton(
+              icon: const Icon(Icons.add, size: 14, color: Colors.black),
+              onPressed: () {
+                setState(() {
+                  _quantity++;
+                  widget.onChanged(_quantity);
+                });
+              },
+            ),
           ),
         ],
       ),

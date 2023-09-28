@@ -2,9 +2,10 @@ import 'package:ecommerce/model/enum/load_status.dart';
 import 'package:ecommerce/ui/pages/detail/detail_products.dart';
 import 'package:ecommerce/ui/pages/products/products_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 
-// ignore: must_be_immutable
+
 class ProductsScreen extends StatefulWidget {
   String? categoryName;
 
@@ -26,11 +27,15 @@ class _ProductsScreenState extends State<ProductsScreen> {
 
   @override
   Widget build(BuildContext context) {
+    ScreenUtil.init(
+      context,
+      designSize: const Size(375, 812),
+    );
     return Scaffold(
       body: Container(
         padding: const EdgeInsets.symmetric(horizontal: 10),
-        height: double.infinity,
-        width: double.infinity,
+        height: 1.h,
+        width: 1.w,
         decoration: const BoxDecoration(color: Colors.white),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -43,23 +48,23 @@ class _ProductsScreenState extends State<ProductsScreen> {
                     onPressed: () {
                       Navigator.pop(context);
                     },
-                    icon: const Icon(
+                    icon: Icon(
                       Icons.arrow_back,
                       color: Colors.black,
-                      size: 25,
+                      size: 25.sp,
                     )),
-                const Icon(
+                 Icon(
                   Icons.search,
                   color: Colors.black,
-                  size: 25,
+                  size: 25.sp,
                 ),
               ],
             ),
             Text(widget.categoryName ?? "",
-                style: const TextStyle(
+                style: TextStyle(
                     fontWeight: FontWeight.bold,
                     color: Colors.black,
-                    fontSize: 20)),
+                    fontSize: 20.sp)),
             Expanded(
               child: Consumer<ProductsProvider>(
                   builder: (context, product, child) {
@@ -98,29 +103,29 @@ class _ProductsScreenState extends State<ProductsScreen> {
                           child: Column(
                             children: [
                               SizedBox(
-                                  height: 120,
+                                  height: 120.h,
                                   child: Image.network(
                                     pro?.image ?? '',
                                     fit: BoxFit.cover,
                                   )),
                               Text(
                                 pro?.category ?? '',
-                                style: const TextStyle(
+                                style: TextStyle(
                                     color: Colors.black,
-                                    fontSize: 16,
+                                    fontSize: 16.sp,
                                     fontWeight: FontWeight.bold),
                               ),
                               Text(
                                 pro?.title ?? '',
                                 overflow: TextOverflow.ellipsis,
-                                style: const TextStyle(
-                                    fontSize: 12, color: Colors.grey),
+                                style: TextStyle(
+                                    fontSize: 12.sp, color: Colors.grey),
                               ),
                               Text(
                                 '\$${pro?.price ?? ''}',
-                                style: const TextStyle(
+                                style: TextStyle(
                                     color: Colors.black,
-                                    fontSize: 16,
+                                    fontSize: 16.sp,
                                     fontWeight: FontWeight.bold),
                               )
                             ],
@@ -130,11 +135,11 @@ class _ProductsScreenState extends State<ProductsScreen> {
                     ),
                   );
                 } else {
-                  return const Center(
+                  return Center(
                     child: SizedBox(
-                      height: 50,
-                      width: 50,
-                      child: CircularProgressIndicator(),
+                      height: 50.h,
+                      width: 50.h,
+                      child: const CircularProgressIndicator(),
                     ),
                   );
                 }

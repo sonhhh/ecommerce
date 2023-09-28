@@ -3,6 +3,7 @@ import 'package:ecommerce/ui/pages/page_view/categori_page/categories_provider.d
 import 'package:ecommerce/ui/pages/products/products.dart';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 
 class HomePage extends StatefulWidget {
@@ -120,10 +121,10 @@ class _HomePageState extends State<HomePage> {
                             });
                       } else {
                         return Center(
-                          child: const SizedBox(
-                              height: 50,
-                              width: 50,
-                              child: CircularProgressIndicator()),
+                          child:  SizedBox(
+                              height: 50.h,
+                              width: 50.h,
+                              child: const CircularProgressIndicator()),
                         );
                       }
                     },

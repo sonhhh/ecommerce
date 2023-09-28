@@ -11,7 +11,7 @@ class CategoriesProvider with ChangeNotifier {
   String? selectedCategoryName;
   CategoriesProvider(this.restClient,
       {this.loadStatus = LoadStatus.loading, this.categories});
-  int selectedCategoryIndex = 0  ;
+  int selectedCategoryIndex = 0;
   Future<void> initData() async {
     try {
       final result = await restClient.getListCategory();
@@ -36,11 +36,19 @@ class CategoriesProvider with ChangeNotifier {
       notifyListeners();
     }
   }
-
-  void setIndex(int index){
+  Future<void> updateSelectedCategoryIndex(int index) async {
     if (index >= 0 && index < categories!.length) {
       selectedCategoryIndex = index;
       selectedCategoryName = categories![index];
+      final selectedCategory = categories![selectedCategoryIndex];
+      final products = await restClient.getProductsByCategory(selectedCategory);
+      if (products != null) {
+        this.products = products;
+        loadStatus = LoadStatus.success;
+      } else {
+        loadStatus = LoadStatus.failure;
+      }
+
       notifyListeners();
     }
   }

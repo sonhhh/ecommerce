@@ -76,6 +76,15 @@ class _BottomBarState extends State<BottomBar> {
       hideNavigationBarWhenKeyboardShows: true,
       decoration: NavBarDecoration(
         borderRadius: BorderRadius.circular(10.0),
+        boxShadow: [ // Đặt boxShadow
+          BoxShadow(
+            color: Colors.grey.withOpacity(0.5),
+            spreadRadius: 1,
+            blurRadius: 1,
+            offset: const Offset(0, -3), // Đặt offset âm tại trục y
+          ),
+        ],
+
       ),
     //  navBarStyle: NavBarStyle.style7,
     );

@@ -4,6 +4,7 @@ import 'package:ecommerce/ui/pages/detail/quantity_selector.dart';
 import 'package:ecommerce/ui/pages/my_cart/my_cart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 
 class Detail extends StatefulWidget {
@@ -43,29 +44,33 @@ class _DetailState extends State<Detail> {
 
   @override
   Widget build(BuildContext context) {
+    // Sử dụng ScreenUtil để thích nghi với kích thước màn hình
+    ScreenUtil.init(context,
+      designSize: Size(375, 812), // Kích thước màn hình gốc
+    );
     return Scaffold(
         body: SizedBox(
-      height: double.infinity,
-      width: double.infinity,
+      height: 1.sh,
+      width: 1.sw,
       child: Column(
         children: [
-          const SizedBox(
-            height: 40,
+           SizedBox(
+            height: 40.h,
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const SizedBox(
-                width: 12,
+               SizedBox(
+                width: 12.w,
               ),
               InkWell(
                 onTap: () {
                   Navigator.pop(context);
                 },
-                child: const Icon(
+                child: Icon(
                   Icons.arrow_back,
                   color: Colors.black,
-                  size: 24,
+                  size: 24.sp,
                 ),
               ),
               const Spacer(),
@@ -77,35 +82,35 @@ class _DetailState extends State<Detail> {
                     },
                   ));
                 },
-                child: const Icon(
+                child: Icon(
                   Icons.shopping_cart,
                   color: Colors.black,
-                  size: 24,
+                  size: 24.sp,
                 ),
               ),
-              const SizedBox(
-                width: 14,
+               SizedBox(
+                width: 14.w,
               )
             ],
           ),
           SizedBox(
-            height: 354,
-            width: double.infinity,
+            height: 354.h,
+            width: 1.sw,
             child: Center(
               child: Image.network(widget.image ?? '',
-                  fit: BoxFit.cover, height: 320),
+                  fit: BoxFit.cover, height: 320.h),
             ),
           ),
           Container(
             padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 12),
-            height: 308,
+            height: 310.h,
             decoration: BoxDecoration(
                 boxShadow: [
                   BoxShadow(
                     color: Colors.grey.withOpacity(0.5),
-                    spreadRadius: 5,
-                    blurRadius: 7,
-                    offset: const Offset(0, 3), // changes position of shadow
+                    spreadRadius: 0,
+                    blurRadius: 0,
+                    offset: const Offset(0, -3), // changes position of shadow
                   ),
                 ],
                 color: Colors.white,
@@ -124,30 +129,33 @@ class _DetailState extends State<Detail> {
                         children: [
                           Text(
                             widget.category ?? '',
-                            style: const TextStyle(
+                            style: TextStyle(
                                 color: Colors.black,
-                                fontSize: 16,
+                                fontSize: 16.sp,
                                 fontWeight: FontWeight.bold),
                           ),
                           SizedBox(
-                            width: 160,
+                            width: 160.w,
                             child: Text(
                               widget.title ?? '',
                               overflow: TextOverflow.ellipsis,
                               maxLines: 2,
-                              style: const TextStyle(
-                                  fontSize: 10, color: Colors.grey),
+                              style: TextStyle(
+                                  fontSize: 10.sp, color: Colors.grey),
                             ),
                           )
                         ],
                       ),
-                      QuantitySelector(
-                        initialValue: selectedQuantity,
-                        onChanged: (quantity) {
-                          setState(() {
-                            selectedQuantity = quantity;
-                          });
-                        },
+                      SizedBox(
+                        width: 88.w,
+                        child: QuantitySelector(
+                          initialValue: selectedQuantity,
+                          onChanged: (quantity) {
+                            setState(() {
+                              selectedQuantity = quantity;
+                            });
+                          },
+                        ),
                       ),
                     ],
                   ),
@@ -167,8 +175,8 @@ class _DetailState extends State<Detail> {
                       print(rating);
                     },
                   ),
-                  const SizedBox(
-                    height: 20,
+                   SizedBox(
+                    height: 20.h,
                   ),
                   const Text('Description',
                       style: TextStyle(
@@ -177,7 +185,7 @@ class _DetailState extends State<Detail> {
                           fontWeight: FontWeight.bold)),
                   Text(
                     widget.description ?? '',
-                    style: const TextStyle(fontSize: 14, color: Colors.black),
+                    style:  TextStyle(fontSize: 14.sp, color: Colors.black),
                   ),
                   const SizedBox(
                     height: 20,
@@ -193,8 +201,8 @@ class _DetailState extends State<Detail> {
                           ),
                           Text(
                             '\$${(widget.price! * selectedQuantity).toStringAsFixed(2)}',
-                            style: const TextStyle(
-                                fontSize: 20,
+                            style:  TextStyle(
+                                fontSize: 20.sp,
                                 color: Colors.black,
                                 fontWeight: FontWeight.bold),
                           )
@@ -227,19 +235,19 @@ class _DetailState extends State<Detail> {
                                 backgroundColor:
                                     MaterialStateProperty.all(Colors.black87),
                               ),
-                              child: const Row(
+                              child: Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
                                   Icon(
                                     Icons.shopping_bag_outlined,
-                                    size: 24,
+                                    size: 24.sp,
                                     color: Colors.white,
                                   ),
                                   Text(
                                     'Add to cart',
                                     style: TextStyle(
-                                        fontSize: 16,
+                                        fontSize: 16.sp,
                                         fontWeight: FontWeight.bold,
                                         color: Colors.white),
                                   )

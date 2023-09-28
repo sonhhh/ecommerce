@@ -53,6 +53,7 @@ dependencies:
   flutter_credit_card: ^3.0.7
   shared_preferences: ^2.2.1
   localstorage: ^4.0.1+4
+  flutter_screenutil: ^5.9.0
 
 
 dev_dependencies:

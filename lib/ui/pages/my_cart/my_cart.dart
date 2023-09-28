@@ -5,6 +5,7 @@ import 'package:ecommerce/ui/pages/detail/quantity_selector.dart';
 import 'package:ecommerce/ui/pages/my_cart/my_carts_provider.dart';
 import 'package:ecommerce/ui/pages/payment/payment.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 
 class MyCart extends StatefulWidget {
@@ -22,14 +23,15 @@ class _MyCartState extends State<MyCart> {
   int? quantity;
   double totalPrice = 0;
 
-
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     provider = Provider.of<DetailProvider>(context, listen: false);
   }
+
   List<double> productPrices = [];
+
 // Hàm tính tổng
   double calculateTotalPrice(List<double> prices) {
     double totalPrice = 0;
@@ -38,13 +40,19 @@ class _MyCartState extends State<MyCart> {
     }
     return totalPrice;
   }
+
   @override
   Widget build(BuildContext context) {
+    // Sử dụng ScreenUtil để thích nghi với kích thước màn hình
+    ScreenUtil.init(
+      context,
+      designSize: Size(375, 812), // Kích thước màn hình gốc
+    );
     return Scaffold(
         body: SingleChildScrollView(
             child: Container(
-      width: double.infinity,
-      margin: const EdgeInsets.symmetric(horizontal: 8),
+      width: 1.sw,
+      margin: EdgeInsets.symmetric(horizontal: 20.w),
       padding: EdgeInsets.zero,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -52,31 +60,31 @@ class _MyCartState extends State<MyCart> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const SizedBox(
-                height: 110,
+              SizedBox(
+                height: 110.h,
               ),
               IconButton(
                   onPressed: () {
                     Navigator.pop(context);
                   },
-                  icon: const Icon(
+                  icon: Icon(
                     Icons.arrow_back,
                     color: Colors.black,
-                    size: 24,
+                    size: 24.sp,
                   )),
               const Spacer(),
               IconButton(
                   onPressed: () {},
-                  icon: const Icon(
+                  icon: Icon(
                     Icons.shopping_cart_outlined,
                     color: Colors.black,
-                    size: 24,
+                    size: 24.sp,
                   ))
             ],
           ),
-          const Text('My Cart',
+          Text('My Cart',
               style: TextStyle(
-                  fontSize: 20,
+                  fontSize: 20.sp,
                   color: Colors.black,
                   fontWeight: FontWeight.bold)),
           Consumer<DetailProvider>(builder: (context, detail, child) {
@@ -90,51 +98,51 @@ class _MyCartState extends State<MyCart> {
                     const Divider(),
                 itemBuilder: (BuildContext context, int index) {
                   final productId = detail.cartsMap.keys.elementAt(index);
-                   var quantity = detail.cartsMap[productId];
-                   final product = detail.product;
-                   int quantityUpdate = detail.quantityUpdate ?? quantity ?? 0;
-                   final int updatedQuantity = quantityUpdate ?? 0;
+                  var quantity = detail.cartsMap[productId];
+                  final product = detail.product;
+                  int quantityUpdate = detail.quantityUpdate ?? quantity ?? 0;
+                  final int updatedQuantity = quantityUpdate;
                   return Container(
-                    height: 120,
-                    padding: const EdgeInsets.all(8),
+                    height: 120.h,
+                    padding: const EdgeInsets.symmetric(horizontal:8),
                     child: Row(
                       children: [
                         ClipRRect(
                           borderRadius: BorderRadius.circular(15),
                           child: Image.network(product?.image ?? '',
-                              fit: BoxFit.cover, width: 120),
+                              fit: BoxFit.cover, width: 120.w),
                         ),
-                        const SizedBox(
-                          width: 8,
+                        SizedBox(
+                          width: 8.w,
                         ),
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             SizedBox(
-                              width: 100,
+                              width: 100.w,
                               child: Text(
                                 product?.title ?? '',
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
-                                style: const TextStyle(
+                                style: TextStyle(
                                     color: Colors.black,
-                                    fontSize: 13,
+                                    fontSize: 13.sp,
                                     fontWeight: FontWeight.bold),
                               ),
                             ),
                             Text(
                               product?.category ?? '',
-                              style: const TextStyle(
-                                  fontSize: 13, color: Colors.grey),
+                              style: TextStyle(
+                                  fontSize: 13.sp, color: Colors.grey),
                             ),
-                            const SizedBox(
-                              height: 32,
+                            SizedBox(
+                              height: 32.h,
                             ),
                             Text(
                               "\$${detail.product?.price}",
-                              style: const TextStyle(
+                              style: TextStyle(
                                 color: Colors.black,
-                                fontSize: 13,
+                                fontSize: 13.sp,
                                 fontWeight: FontWeight.bold,
                               ),
                             )
@@ -142,27 +150,30 @@ class _MyCartState extends State<MyCart> {
                         ),
                         Consumer2<DetailProvider, MyCartsProvider>(
                           builder: (context, detail1, myCart, child) {
-                            return QuantitySelector(
-                              initialValue: quantity ?? 0,
-                              onChanged: (newQuantity) {
-                                setState(() {
-                                  quantity = newQuantity;
-                                  detail1.updateQuantity(
-                                      widget.id ?? 0,
-                                      Carts(
-                                          id: 11,
-                                          userId: 1,
-                                          date: DateTime.now(),
-                                          products: [
-                                            Product(
-                                                productId: productId,
-                                                quantity: newQuantity)
-                                          ]));
-                                  if (newQuantity == 0) {
-                                    myCart.removeFromCart(productId, 1);
-                                  }
-                                });
-                              },
+                            return SizedBox(
+                              width: 88,
+                              child: QuantitySelector(
+                                initialValue: quantity ?? 0,
+                                onChanged: (newQuantity) {
+                                  setState(() {
+                                    quantity = newQuantity;
+                                    detail1.updateQuantity(
+                                        widget.id ?? 0,
+                                        Carts(
+                                            id: 11,
+                                            userId: 1,
+                                            date: DateTime.now(),
+                                            products: [
+                                              Product(
+                                                  productId: productId,
+                                                  quantity: newQuantity)
+                                            ]));
+                                    if (newQuantity == 0) {
+                                      myCart.removeFromCart(productId, 0);
+                                    }
+                                  });
+                                },
+                              ),
                             );
                           },
                         ),
@@ -181,98 +192,101 @@ class _MyCartState extends State<MyCart> {
               );
             }
           }),
-          const SizedBox(
-            height: 50,
+          SizedBox(
+            height: 50.h,
           ),
           Consumer2<DetailProvider, MyCartsProvider>(
-            builder: (context, detail1, myCart, child) {final product = detail1.product;
-            final quantity = detail1.quantityUpdate;
-            final int cartsMapQuantity = detail1.cartsMap[product?.id] ?? 0;
-            final int updatedQuantity = quantity ?? 0;
-            double price = (product?.price ?? 0) * (updatedQuantity >= cartsMapQuantity ? updatedQuantity : cartsMapQuantity);
-
-            return Container(
-              padding: const EdgeInsets.all(12),
-              height: 160,
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20),
-                  border: Border.all(color: Colors.grey, width: 1)),
-              child:  Column(
-                children: [
-                  const SizedBox(
-                    height: 12,
-                  ),
-                   Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                       Text(
-                        'Subtotal:',
-                        style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 14,
-                            fontWeight: FontWeight.bold),
-                      ),
-                      Text(
-                        '\$${price}',
-                        style: const TextStyle(
-                            fontSize: 20,
-                            color: Colors.black,
-                            fontWeight: FontWeight.bold),
-                      )
-                    ],
-                  ),
-                  const Divider(
-                    color: Colors.grey,
-                  ),
-                  const Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        'Shipping:',
-                        style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 14,
-                            fontWeight: FontWeight.bold),
-                      ),
-                      Text(
-                        '\$17',
-                        style: TextStyle(
-                            fontSize: 20,
-                            color: Colors.black,
-                            fontWeight: FontWeight.bold),
-                      )
-                    ],
-                  ),
-                  const Divider(
-                    color: Colors.grey,
-                  ),
-                   Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      const Text(
-                        'BagTotal:',
-                        style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 14,
-                            fontWeight: FontWeight.bold),
-                      ),
-                      Text(
-                        '\$${price + 17}',
-                        style: const TextStyle(
-                          fontSize: 20,
-                          color: Colors.black,
-                          fontWeight: FontWeight.bold,
+            builder: (context, detail1, myCart, child) {
+              final product = detail1.product;
+              final quantity = detail1.quantityUpdate;
+              final int cartsMapQuantity = detail1.cartsMap[product?.id] ?? 0;
+              final int updatedQuantity = quantity ?? 0;
+              double price = (product?.price ?? 0) *
+                  (updatedQuantity >= cartsMapQuantity
+                      ? updatedQuantity
+                      : cartsMapQuantity);
+              return Container(
+                padding: const EdgeInsets.all(12),
+                height: 167.h,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20),
+                    border: Border.all(color: Colors.grey, width: 1)),
+                child: Column(
+                  children: [
+                    SizedBox(
+                      height: 12.h,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          'Subtotal:',
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 14.sp,
+                              fontWeight: FontWeight.bold),
                         ),
-                      )
-                    ],
-                  )
-                ],
-              ),
-            );
-          },),
-
-           const SizedBox(
-            height: 80,
+                        Text(
+                          '\$${(price).toStringAsFixed(2)}',
+                          style: TextStyle(
+                              fontSize: 20.sp,
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold),
+                        )
+                      ],
+                    ),
+                    const Divider(
+                      color: Colors.grey,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          'Shipping:',
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 14.sp,
+                              fontWeight: FontWeight.bold),
+                        ),
+                        Text(
+                          '\$17',
+                          style: TextStyle(
+                              fontSize: 20.sp,
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold),
+                        )
+                      ],
+                    ),
+                    const Divider(
+                      color: Colors.grey,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          'BagTotal:',
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 14.sp,
+                              fontWeight: FontWeight.bold),
+                        ),
+                        Text(
+                          '\$${(price + 17).toStringAsFixed(2)}',
+                          style: TextStyle(
+                            fontSize: 20.sp,
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        )
+                      ],
+                    )
+                  ],
+                ),
+              );
+            },
+          ),
+          SizedBox(
+            height: 80.h,
           ),
           GestureDetector(
             onTap: () {
@@ -284,15 +298,15 @@ class _MyCartState extends State<MyCart> {
             },
             child: Container(
               height: 50,
-              width: double.infinity,
+              width: 1.sw,
               decoration: BoxDecoration(
                   color: Colors.black, borderRadius: BorderRadius.circular(16)),
-              child: const Center(
+              child: Center(
                 child: Text('Proceed to Checkout',
                     style: TextStyle(
                         color: Colors.white,
                         fontWeight: FontWeight.bold,
-                        fontSize: 18)),
+                        fontSize: 18.sp)),
               ),
             ),
           )
