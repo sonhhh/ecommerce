@@ -21,7 +21,6 @@ class MyCart extends StatefulWidget {
 class _MyCartState extends State<MyCart> {
   late DetailProvider provider;
   int? quantity;
-  double totalPrice = 0;
 
   @override
   void initState() {
@@ -100,8 +99,6 @@ class _MyCartState extends State<MyCart> {
                   final productId = detail.cartsMap.keys.elementAt(index);
                   var quantity = detail.cartsMap[productId];
                   final product = detail.product;
-                  int quantityUpdate = detail.quantityUpdate ?? quantity ?? 0;
-                  final int updatedQuantity = quantityUpdate;
                   return Container(
                     height: 120.h,
                     padding: const EdgeInsets.symmetric(horizontal:8),
@@ -200,11 +197,19 @@ class _MyCartState extends State<MyCart> {
               final product = detail1.product;
               final quantity = detail1.quantityUpdate;
               final int cartsMapQuantity = detail1.cartsMap[product?.id] ?? 0;
-              final int updatedQuantity = quantity ?? 0;
-              double price = (product?.price ?? 0) *
-                  (updatedQuantity >= cartsMapQuantity
-                      ? updatedQuantity
-                      : cartsMapQuantity);
+              final int updatedQuantity  = quantity ?? 0;
+              double price = 0.0;
+              if (updatedQuantity <= cartsMapQuantity) {
+                // Xử lý khi updatedQuantity >= cartsMapQuantity (tăng quantity)
+                price = (product?.price ?? 0) * cartsMapQuantity ;
+                print(price);
+              } else if (updatedQuantity >= cartsMapQuantity) {
+                price = (  product?.price ?? 0) * updatedQuantity;
+                print(price);
+              } else{
+                price = (product?.price ?? 0) * updatedQuantity;
+                print(price);
+              }
               return Container(
                 padding: const EdgeInsets.all(12),
                 height: 167.h,

@@ -30,6 +30,8 @@ class _BottomBarState extends State<BottomBar> {
           color: controller.index == 0 ? Colors.black87 : Colors.black,
         ),
         title: "Home",
+        activeColorPrimary: Colors.black,
+        inactiveColorPrimary: Colors.black,
         textStyle: const TextStyle(fontWeight: FontWeight.bold, color:Colors.black ),
       ),
       PersistentBottomNavBarItem(
@@ -37,6 +39,8 @@ class _BottomBarState extends State<BottomBar> {
           color: controller.index == 1 ? Colors.black87 : Colors.black,
         ),
         title: "cart",
+        activeColorPrimary: Colors.black,
+        inactiveColorPrimary: Colors.black,
         textStyle: const TextStyle(fontWeight: FontWeight.bold, color: Colors.black),
       ),
       PersistentBottomNavBarItem(
@@ -44,6 +48,8 @@ class _BottomBarState extends State<BottomBar> {
           color: controller.index == 2 ? Colors.black87 : Colors.black,
         ),
         title: "notification",
+        activeColorPrimary: Colors.black,
+        inactiveColorPrimary: Colors.black,
         textStyle: const TextStyle(fontWeight: FontWeight.bold, color: Colors.black),
       ),
       PersistentBottomNavBarItem(
@@ -51,6 +57,8 @@ class _BottomBarState extends State<BottomBar> {
           color: controller.index == 3 ? Colors.black87 : Colors.black,
         ),
         title: "account",
+        activeColorPrimary: Colors.black,
+        inactiveColorPrimary: Colors.black,
         textStyle: const TextStyle(fontWeight: FontWeight.bold, color: Colors.black),
       ),
     ];
